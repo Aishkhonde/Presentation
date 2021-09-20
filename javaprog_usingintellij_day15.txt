@@ -1,0 +1,565 @@
+Largest of Three Ternary Operator
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        int a,b,c,d;
+        System.out.println("Enter all three numbers:");
+        a= sc.nextInt();
+        b= sc.nextInt();
+        c= sc.nextInt();
+        d=c>(a>b?a:b)?c:((a>b)?a:b);
+        System.out.println("largest number:"+d);
+        sc.close();
+
+    }
+}
+
+Output:
+Enter all three numbers:
+12
+34
+56
+largest number:56
+
+Array of Elements
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+      /*  int[] arr={10,20,30,40,50};
+        System.out.println("printing the element in the array");
+        for(int i=0;i<arr.length;i++)
+        {
+            System.out.print(arr[i]+" ");
+        }*/
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter the number of elements:");
+        int n= sc.nextInt();
+        int[] arr=new int[n];
+        int sum=0;
+        System.out.println("Enter the array element");
+        for(int i=0;i<arr.length;i++)
+        {
+            arr[i]= sc.nextInt();
+            sum+=arr[i];
+        }
+        System.out.println("printing the elements in the array:");
+        for(int i=0;i<arr.length;i++){
+            System.out.println(arr[i]+"  ");
+        }
+        System.out.println();
+        System.out.println("the sum of elements of array:"+sum);
+        sc.close();
+    }
+}
+Output:
+Enter the number of elements:
+5
+Enter the array element
+10 20 30 40 50
+printing the elements in the array:
+10  
+20  
+30  
+40  
+50  
+the sum of elements of array:150
+
+Factorial of Number
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter a number:");
+        int num=sc.nextInt();
+        long fact=factorial(num);
+        System.out.println("Factorial of "+num+" is :"+fact);
+        sc.close();
+    }
+    public static long factorial(int num)
+    {
+        long f=1;
+        for(int i=1;i<=num;i++)
+            f*=i;
+        return f;
+    }
+}
+Output:
+Enter a number:
+5
+Factorial of 5 is :120
+
+SwitchCase
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        //to find number of days having in a given month
+        System.out.println("Enter the month number:");
+        int mno=sc.nextInt();
+        String days=tofinddays(mno);
+        System.out.println("the month no. "+mno+" "+days);
+    }
+    public static String tofinddays(int mno)
+    {
+        String days;
+        switch(mno) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12: days="has 31 days";
+                     break;
+
+            case 2: days="has 28 or 29 days";
+                    break;
+            case 4:
+            case 6:
+            case 9:
+            case 11: days="has 30 days";
+                    break;
+            default:
+                days="invalid month no.";
+
+
+        }
+        return days;
+    }
+
+}
+Output:
+1.Enter the month number:
+4
+the month no. 4 has 30 days
+2.Enter the month number:
+2
+the month no. 2 has 28 or 29 days
+3.Enter the month number:
+3
+the month no. 3 has 31 days
+
+Increment and Decrement Function
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+int i=10;
+        int ans=++i;//increment and assign
+        System.out.println(i+" "+ans);
+        int ans1=i++;
+        System.out.println(i+" "+ans1);
+
+
+    }
+}
+Output:
+11 11
+12 11
+
+TypeCasting
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        //typecasting
+        /*1.implicit
+            2.explicit*/
+        float f1=13.33F;//on default any floating point is considered as double in java
+        double d1=f1;//implicit conversion
+        float f2=(float) d1;//d1-->8bytes,f2-->4bytes-------Explicit Conversion
+        int i1=(int) d1;//Explicit conversion,the decimal value will be truncated
+        System.out.println("f1 value:"+f2);
+        System.out.println("i1 value:" +i1);
+        System.out.println("d1 value" +d1);
+        System.out.printf("formatted d1:%.2f" ,d1);
+
+  }
+}
+Output:
+f1 value:13.33
+i1 value:13
+d1 value13.329999923706055
+formatted d1:13.33
+
+Inc and dec Func
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+/*int x=3,y=5,z=10
+        res1=z+ ++y -y +z + ++x
+        res2=++z +y -Y +z + x++
+        res3=z+ ++y - y++ + ++z + ++x
+         */
+        int x=3,y=5,z=10;
+        int res1=z+ ++y -y +z + ++x;
+        System.out.println(+res1);
+        int  res2=++z +y -y +z + x++;
+        System.out.println(+res2);
+        int  res3=z+ ++y - y++ + ++z + ++x;
+        System.out.println(+res3);
+
+
+    }
+}
+Output:
+24
+26
+29
+
+Find largest of three numbers
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+System.out.println("finding largest of 3 nos.using ternary operator:");
+        System.out.println("Enter three numbers:");
+        int n1= sc.nextInt();
+        double n2= sc.nextDouble();
+        long n3= sc.nextLong();
+        double lar1=(n1>n2)?n1:n2;
+        double lar2=(lar1>n3)?lar1:n3;
+        System.out.println("largest number:"+lar2);
+
+    }
+}
+Output:
+Enter three numbers:
+12
+34
+789
+largest number:789.0
+
+Odd or Even Number
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+System.out.println("To print given number is even or odd");
+ System.out.println("Enter a number:");
+ int num= sc.nextInt();
+ if(num%2==0)
+     System.out.println(num+"number is even");
+ else
+     System.out.println(num+"number is odd");
+  }
+}
+Output:
+1.Enter a number:
+23
+23number is odd
+2.Enter a number:
+12
+12number is even
+
+Adding two numbers
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+System.out.println("Enter two numbers:");
+int num1= sc.nextInt();
+int num2= sc.nextInt();
+int sum=num1+num2;
+System.out.println("sum="+sum);
+
+    }
+}
+Output:
+Enter two numbers:
+10
+20
+sum=30
+
+Leap year or not Leap year
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+        //year to be checked
+	int year =1990;
+    boolean leap=false;
+    //if the year is divided by 4
+        if (year % 4 == 0) {
+            //if year is century
+            if(year%100==0){
+                //if year is divided by 400,then it is leap year
+                if(year%400==0)
+                    leap=true;
+                else
+                    leap=false;
+            }
+            else
+                leap=true;
+        }
+        else
+            leap=false;
+        if(leap)
+            System.out.println(year+ " is a leap year");
+        else
+            System.out.println(year+ " is not a leap year");
+    }
+}
+Output:
+1990 is not a leap year
+
+Armstrong Number or not
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+	int number=153,originalNumber,remainder,result=0;
+    originalNumber=number;
+    while (originalNumber !=0)
+    {
+        remainder=originalNumber%10;
+        result += Math.pow(remainder,3);
+        originalNumber /=10;
+    }
+    if(result==number)
+        System.out.println(number + " is an Armstrong number.");
+    else
+        System.out.println(number + " is not an Armstrong number");
+    }
+}
+Output:
+153 is an Armstrong number.
+
+Find perfect number or not
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args)
+    {
+	long n,sum=0;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter a number:");
+        n=sc.nextLong();
+        int i=1;
+        while(i<=n/2)
+        {
+            if(n%i==0)
+            {
+                sum+=i;
+
+            }
+            i++;
+        }
+        if(sum==n) {
+            System.out.println(n + " is a perfect number");
+        }
+            else
+            System.out.println(n + " is not a perfect number");
+
+
+        sc.close();
+    }
+}
+Output:
+1.Enter a number:
+8
+8 is not a perfect number
+2.Enter a number:
+6
+6 is a perfect number
+Multiplication Table
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+	int num=5;
+    for(int i=1;i<=10;i++){
+        System.out.printf("%d * %d = %d \n",num,i,num * i);
+    }
+    }
+}
+Output:
+5 * 1 = 5 
+5 * 2 = 10 
+5 * 3 = 15 
+5 * 4 = 20 
+5 * 5 = 25 
+5 * 6 = 30 
+5 * 7 = 35 
+5 * 8 = 40 
+5 * 9 = 45 
+5 * 10 = 50 
+
+LCM and HCF of two given numbers
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+	int temp1,temp2,num1,num2,temp,hcf,lcm;
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter first number:");
+        num1=sc.nextInt();
+        System.out.println("Enter second number:");
+        num2=sc.nextInt();
+
+        temp1=num1;
+        temp2=num2;
+        while(temp2!=0){
+            temp=temp2;
+            temp2=temp1%temp2;
+            temp1=temp;
+        }
+        hcf=temp1;
+        lcm=(num1*num2)/hcf;
+        System.out.println("HCF of input numbers:"+hcf);
+        System.out.println("LCM of input numbers:"+lcm);
+        sc.close();
+    }
+}
+Output:
+Enter first number:10
+Enter second number:
+30
+HCF of input numbers:10
+LCM of input numbers:30
+
+Prime or not prime
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+
+System.out.println("Enter a integer number:");
+    int num =sc.nextInt();
+    if (isPrime(num))
+        System.out.println("the number is prime");
+    else
+        System.out.println("the number is not prime");
+
+
+}
+public static boolean isPrime(int num)
+    {
+        boolean flag=true;
+        for (int i=2;i<(num/2);i++)
+        {
+            if(num%i==0)
+            {
+                flag=false;
+                break;
+            }
+        }
+        return flag;
+    }
+}
+Output:
+1.Enter a integer number:
+23
+the number is prime
+2.Enter a integer number:
+12
+the number is not prime
+Reverse the number
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+         System.out.println("Enter the number to be reversed:");
+        int num= sc.nextInt();
+       // int revnum=reverseNum(num);
+        //System.out.println("reverse of "+num+" is: "+revnum);
+        System.out.println("reverse of "+num+" is: "+reverseNum(num));
+
+}
+public static int reverseNum(int n)
+{
+    int rem=0,revnum=0;
+    while(n!=0){
+        rem= n%10;
+        revnum=revnum*10+rem;
+        n=n/10;
+    }
+    return revnum;
+}
+}
+Output:
+Enter the number to be reversed:
+1234
+reverse of 1234 is: 4321
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
