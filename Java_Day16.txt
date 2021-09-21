@@ -1,0 +1,347 @@
+Creating a class and defining Objects
+create a class called customer
+
+
+package com.thbs;
+
+public class Customer {
+    private int custId;
+    private String custName;
+    private int unitsConsumed;
+    private int unitPrice;
+
+    public Customer(int custId,String custName, int unitsConsumed, int unitPrice) {
+        this.custId = custId;
+        this.custName = custName;
+        this.unitsConsumed = unitsConsumed;
+        this.unitPrice = unitPrice;
+    }
+    public int calc_billamt()
+    {
+        return(unitsConsumed*unitPrice);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "custId=" + custId +
+                ", custName='" + custName + '\'' +
+                ", unitsConsumed=" + unitsConsumed +
+                ", unitPrice=" + unitPrice +" Bill amount:"+calc_billamt()+
+                '}';
+    }
+}
+
+Main program:
+
+package com.thbs;
+
+public class Main {
+    public static void main(String[] args) {
+
+        Customer c1 =new Customer(1,"Aishwarya",2000,5);
+        System.out.println(c1);
+        Customer c2=new Customer(2,"Divya",1200,8);
+        Customer c3=new Customer(3,"Vanitha",1500,4);
+        System.out.println(c2);
+        System.out.println(c3);
+
+    }
+}
+Output:
+Customer{custId=1, custName='Aishwarya', unitsConsumed=2000, unitPrice=5 Bill amount:10000}
+Customer{custId=2, custName='Divya', unitsConsumed=1200, unitPrice=8 Bill amount:9600}
+Customer{custId=3, custName='Vanitha', unitsConsumed=1500, unitPrice=4 Bill amount:6000}
+
+
+
+Max and Min element in an array:
+
+
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+     /*  // for(int i=0;++i<=10;i++)//inc and check++i<=10
+        for(int i=0;i++<=10;i++)//check and inc i++<=10
+        {
+            System.out.println(i);
+        }*/
+        //to find min and max element in an array
+        //linear search
+        int[] iarr={11,26,133,47,55};
+        int max=iarr[0];
+        int min=iarr[0];
+        for(int i=1;i<iarr.length;i++)
+        {
+            if(iarr[i]>max)
+                max=iarr[i];
+            if(iarr[i]<min)
+                min=iarr[i];
+        }
+        System.out.println("maximum element in the array:"+max);
+        System.out.println("minimum element in the array:"+min);
+
+
+    }
+}
+
+Output:
+maximum element in the array:133
+minimum element in the array:11
+
+
+
+Command line arguments:
+
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+	// write your code here
+        String str1=args[0];
+        String str2=args[1];
+        String str3=args[2];
+        int num1=Integer.parseInt(str1);
+        int num2=Integer.parseInt(str2);
+double num3=Double.parseDouble(str3);
+        System.out.println("sum= "+(num1+num2+num3));
+    }
+}
+
+Output:
+sum= 258.0
+
+
+
+
+Bubble sorting:
+
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args){
+        //read an array
+        int len=Integer.parseInt(args[0]);
+        //declaration of array
+        int[] iarr=new int[len];
+        Scanner sc=new Scanner(System.in);
+        System.out.println("enter the elements in an array:");
+        for(int i=0;i<iarr.length;i++)
+        {
+            iarr[i]=sc.nextInt();
+
+        }
+         //sorting the array
+
+         for(int i=0;i<(iarr.length-1);i++)
+         {
+              for(int j=0;j<(iarr.length-i-1);j++)
+              {
+                  if(iarr[j]>iarr[j+1])
+                  {
+                      int temp=iarr[j];
+                      iarr[j]=iarr[j+1];
+                      iarr[j+1]=temp;
+
+                  }
+              }
+          }
+        System.out.println("printing the elements of an array:");
+         for(int i=0;i<iarr.length;i++)
+         {
+             System.out.print(iarr[i]+" ");
+         }
+        System.out.println();
+    }
+}
+
+Output:
+enter the elements in an array:
+23
+46
+32
+101
+67
+printing the elements of an array:
+23 32 46 67 101 
+
+
+
+Create class called student and print the details:
+Student class:
+
+
+package com.thbs;
+
+public class Student {
+    private  int regNo;
+    private  String name;
+    private int subm1;
+    private int subm2;
+    private int subm3;
+
+    public Student(int regNo, String name, int subm1, int subm2, int subm3) {
+        this.regNo = regNo;
+        this.name = name;
+        this.subm1 = subm1;
+        this.subm2 = subm2;
+        this.subm3 = subm3;
+    }
+    private double calc_percentage()
+    {
+        return ((subm1+subm2+subm3)/3);
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "regNo=" + regNo +
+                ", name='" + name + '\'' +
+                ", subm1=" + subm1 +
+                ", subm2=" + subm2 +
+                ", subm3=" + subm3 +"  Percentage scored:"+calc_percentage()+
+                '}';
+    }
+}
+Main program:
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+	Student student1=new Student(10,"Joe",80,85,70);
+        System.out.println(student1);
+        Student student2=new Student(11,"Divya",56,78,80);
+        System.out.println(student2);
+        Student student3=new Student(12,"Rakshitha",50,60,40);
+        System.out.println(student3);
+    }
+}
+
+Output:
+Student{regNo=10, name='Joe', subm1=80, subm2=85, subm3=70  Percentage scored:78.0}
+Student{regNo=11, name='Divya', subm1=56, subm2=78, subm3=80  Percentage scored:71.0}
+Student{regNo=12, name='Rakshitha', subm1=50, subm2=60, subm3=40  Percentage scored:50.0}
+
+
+
+Create class Book and fill the deatils:
+Book class:
+
+
+package com.thbs;
+
+public class Book {
+    int bookId;
+    String bookName;
+    int bookPrice;
+    //function/method in OOPs called constructor
+
+    public Book(int bookId, String bookName, int bookPrice) {
+        this.bookId = bookId;
+        this.bookName = bookName;
+        this.bookPrice = bookPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", bookName='" + bookName + '\'' +
+                ", bookPrice=" + bookPrice +
+                '}';
+    }
+}
+Main Program:
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+        /*Scanner sc=new Scanner(System.in);
+        System.out.println("Enter the details of the book1");
+        int bookId1=sc.nextInt();
+        String bookName1=sc.next();
+        int bookPrice1=sc.nextInt();
+
+        Book book1=new Book(bookId1,bookName1,bookPrice1);
+        System.out.println(book1);
+        System.out.println("Enter the details of the book2");
+        int bookId2=sc.nextInt();
+        String bookName2=sc.next();
+        int bookPrice2=sc.nextInt();
+
+        Book book2=new Book(bookId2,bookName2,bookPrice2);
+        System.out.println(book2);*/
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter number of elements in book array:");
+        int len=sc.nextInt();
+
+        Book[] bookarr=new Book[len];
+        for(int i=0;i<bookarr.length;i++) {
+            System.out.println("Entering details of book" + (i + 1));
+            int bookId = sc.nextInt();
+            sc.nextLine();
+            String bookName = sc.nextLine();
+
+            int bookPrice = sc.nextInt();
+            bookarr[i]=new Book (bookId,bookName,bookPrice);
+
+        }
+        System.out.println("to print the book in the bookarr");
+//         for(int i=0;i<bookarr.length;i++)
+//        {
+//         System.out.println(bookarr[i]);
+//     }
+        //enhanced for loop
+        for(Book book:bookarr)
+        {
+            System.out.println(book);
+        }
+        int[] iarr={1,2,3,4,5};
+        for(int n:iarr){
+            System.out.print(n+ " ");
+        }
+        System.out.println();
+    }
+
+}
+
+Output:
+Enter number of elements in book array:
+3
+Entering details of book1
+300
+Java script
+500
+Entering details of book2
+200
+web paging
+600
+Entering details of book3
+300
+Harry potter
+700
+to print the book in the bookarr
+Book{bookId=300, bookName='Java script', bookPrice=500}
+Book{bookId=200, bookName='web paging', bookPrice=600}
+Book{bookId=300, bookName='Harry potter', bookPrice=700}
+1 2 3 4 5 
+
+
+
+
+
+
+
+
