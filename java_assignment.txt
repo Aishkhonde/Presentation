@@ -1,0 +1,858 @@
+1.Palindrome number:- If the Reverse of a number is equal to the same number then the 
+number is called palindrome number.
+
+Palindrome 
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+        int r,sum=0,temp;
+        int n=454;//It is the number variable to be checked for palindrome
+
+        temp=n;
+        while(n>0){
+            r=n%10; //getting remainder
+            sum=(sum*10)+r;
+            n=n/10;
+        }
+        if(temp==sum)
+            System.out.println("palindrome number ");
+        else
+            System.out.println("not palindrome");
+    }
+}
+
+Output:
+palindrome number 
+
+
+
+
+2.Java program to find the sum of even and odd digits in a given number.
+Sum of even and odd 
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+        int n = 457892;
+        getSum(n);
+    }
+    // Function to return the reverse of a number
+    static int reverse(int n)
+    {
+        int rev = 0;
+        while (n != 0) {
+            rev = (rev * 10) + (n % 10);
+            n /= 10;
+        }
+        return rev;
+    }
+
+    // Function to find the sum of the odd
+// and even positioned digits in a number
+    static void getSum(int n)
+    {
+        n = reverse(n);
+        int sumOdd = 0,sumEven = 0, c = 1;
+
+        while (n != 0) {
+
+// If c is even number then it means
+// digit extracted is at even place
+            if (c % 2 == 0)
+                sumEven += n % 10;
+            else
+                sumOdd += n % 10;
+            n /= 10;
+            c++;
+        }
+
+        System.out.println("Sum odd = " + sumOdd);
+        System.out.println("Sum even = " + sumEven);
+    }
+}
+
+Output:
+Sum odd = 20
+Sum even = 15
+
+
+
+
+3.A number whose sum of its digits powered with their respective position is
+equal to the original number is called disarium number. 
+Examples of disarium numbers are- 135, 175, 518 and e.tc.
+Number = 89 => 81 + 92 = 8 + 81 = 89 So, 89 is a disarium number.
+Number = 135 => 11 + 32 + 53 = 1 + 9 + 125 = 135 Hence 135 is a disarium number. 
+Number = 518 => 51 + 12 + 83 = 5 + 1+ 512 = 518 So, 518 is a disarium number.
+
+DisariumNumber
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+        int num = 175, sum = 0, rem = 0, n;//1^1+7^2+5^3=175
+        int len = calculateLength(num);
+
+//Makes a copy of the original number num
+        n = num;
+
+//Calculates the sum of digits powered with their respective position
+        while(num > 0){
+            rem = num%10;
+            sum = sum + (int)Math.pow(rem,len);
+            num = num/10;
+            len--;
+        }
+
+//Checks whether the sum is equal to the number itself
+        if(sum == n)
+            System.out.println(n + " is a disarium number");
+        else
+            System.out.println(n + " is not a disarium number");
+    }
+    public static int calculateLength(int n){
+        int length = 0;
+        while(n != 0){
+            length = length + 1;
+            n = n/10;
+        }
+        return length;
+    }
+}
+
+Output:
+175 is a disarium number
+
+
+
+
+4.What is a Krishnamurthy Number?
+If the sum of the factorial of all digits of a number is equal to the 
+original number then the number is called Krishnamurthy Number. 
+For example- 145 and 40585 are Krishnamurthy numbers. 1 and 2 are also 
+Krishnamurthy numbers because their factorials are equal to the same number.
+145
+=> 1! + 4! + 5!
+=> 1 + 24 + 120
+=> 145
+The sum of the factorial of individual digits is the same as the original number 145.
+ Hence, 145 is .a Krishnamurthy number.
+Krishnamurthy Number
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+        int n = 145;//1!+4!+5!=1+24+120=145
+        if (isKrishnamurthy(n))
+            System.out.println("YES");
+        else
+            System.out.println("NO");
+    }
+    static int factorial(int n)
+    {
+        int fact = 1;
+        while (n != 0) {
+            fact = fact * n;
+            n--;
+        }
+        return fact;
+    }
+
+    // function to Check if number is krishnamurthy
+    static boolean isKrishnamurthy(int n)
+    {
+        int sum = 0;
+
+        int temp = n;
+        while (temp != 0) {
+// calculate factorial of last digit
+// of temp and add it to sum
+            sum += factorial(temp % 10);
+
+// replace value of temp by temp/10
+            temp = temp / 10;
+        }
+
+// Check if number is krishnamurthy
+        return (sum == n);
+    }
+}
+
+Output:
+YES
+
+
+
+
+5.Write a Java program to find the second largest number in Java.
+package com.thbs;
+
+import java.util.Arrays;
+
+public class Main {
+
+    public static void main(String[] args) {
+	int arr[]={12,35,1,10,134,1};
+    int n=arr.length;
+    print2largest(arr,n);
+    }
+    static  void print2largest(int arr[],int arr_size)
+    {
+        int i,first,second;
+        if(arr_size<2)
+        {
+            System.out.println("Invalid input");
+            return;
+        }
+        Arrays.sort(arr);
+        for(i=arr_size-2;i>=0;i--)
+        {
+            if(arr[i]!=arr[arr_size-1])
+            {
+                System.out.println("The second largest"+"element is %d \n "+arr[i]);
+                return;
+            }
+            System.out.println("There is no second"+"largest element\n");
+        }
+    }
+}
+Output:
+The second largestelement is %d 
+ 34
+
+
+
+
+6.we will develop the Armstrong number program in Java.
+First, we will develop a java program to check an Armstrong number,
+ and then we will develop a java program for an Armstrong number between 1 to 1000.
+A positive integer is called Armstrong number of order n if, abcd…. = an + bn + cn + dn + ….
+
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+	int number=153,originalNumber,remainder,result=0;//1^3+5^3+3^3
+    originalNumber=number;
+    while (originalNumber !=0)
+    {
+        remainder=originalNumber%10;
+        result += Math.pow(remainder,3);
+        originalNumber /=10;
+    }
+    if(result==number)
+        System.out.println(number + " is an Armstrong number.");
+    else
+        System.out.println(number + " is not an Armstrong number");
+    }
+}
+Output:
+153 is an Armstrong number.
+
+
+
+
+7.Perfect number:- A number whose factors sum except itself, 
+is equal to the same number is called a perfect number.
+
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args)
+    {
+	long n,sum=0;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter a number:");
+        n=sc.nextLong();
+        int i=1;
+        while(i<=n/2)
+        {
+            if(n%i==0)
+            {
+                sum+=i;
+
+            }
+            i++;
+        }
+        if(sum==n) {
+            System.out.println(n + " is a perfect number");
+        }
+            else
+            System.out.println(n + " is not a perfect number");
+
+
+        sc.close();
+    }
+}
+Output:
+6
+6 is a perfect number
+23
+23 is not a perfect number
+
+
+
+
+8.Write a Java program to find the largest number in the array.
+
+package com.thbs;
+
+
+import java.util.Arrays;
+
+public class Main {
+
+    public static void main(String[] args) {
+	//int a[]={1,2,5,6,8,9};
+    int b[]={44,66,99,77,22,55,33};
+        //System.out.println("largest:"+getlargest(a,6));
+        System.out.println("largest:"+getlargest(b,7));
+    }
+    public static int getlargest(int[]b,int total){
+        Arrays.sort(b);
+        return b[total-1];
+    }
+}
+Output:
+largest:99
+
+
+
+
+9.Java Program to find the grade of a student using switch case. Here we will write a Java program find out students grades using switch case statement. The below table shows the grading system.
+Score in subject
+Grade
+>=90  A
+80-89 B
+70-79 C
+60-69 D
+50-59 E
+<50   F
+
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+	int count;
+    float totalMarks=0,percentage,average;
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter no. of Subjects");
+        count= sc.nextInt();
+        System.out.println("Enter Marks of"+count+"Subject");
+        for(int i=0;i<count;i++)
+        {
+            totalMarks+=sc.nextInt();
+
+        }
+        System.out.println("Total Marks:"+totalMarks);
+        percentage=(totalMarks/(count*100))*100;
+        switch ((int)percentage/10) {
+            case 1:
+                System.out.println("Grade:A");
+                break;
+            case 2:
+                System.out.println("Grade:B");
+                break;
+            case 3:
+                System.out.println("Grade:C");
+                break;
+            case 5:
+                System.out.println("Grade:D");
+                break;
+            case 6:
+                System.out.println("Grade:E");
+                break;
+            default:
+                System.out.println("Grade:F");
+                break;
+        }
+        }
+    }
+Output:
+Enter no. of Subjects
+5
+Enter Marks of5Subject
+45 69 53 58 62
+Total Marks:287.0
+Grade:D
+
+
+
+
+10.Pascal Triangle in Java | Pascal triangle is a triangular array of binomial coefficients. 
+In pascal’s triangle, each number is the sum of the two numbers directly above it.
+     1 
+    1 1 
+   1 2 1 
+  1 3 3 1 
+ 1 4 6 4 1
+
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+	int n=5;
+    printpascal(n);
+    }
+    public static void printpascal(int n)
+    {
+        for(int line=1;line<=n;line++){
+            for(int j=0;j<=n-line;j++){
+                System.out.print(" ");
+            }
+            int c=1;
+            for(int i=1;i<=line;i++){
+                System.out.print(c +" ");
+                c=c*(line-i)/i;
+
+            }
+            System.out.println();
+        }
+    }
+}
+Output:
+     1 
+    1 1 
+   1 2 1 
+  1 3 3 1 
+ 1 4 6 4 1 
+
+
+
+
+
+11.The highest common factor (HCF) of two or more numbers is the greatest number which divides each of them exactly.
+ Greatest Common Measure(GCM) and Greatest Common Divisor(GCD) are the other terms used to refer to HCF.
+
+package com.thbs;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+	int temp1,temp2,num1,num2,temp,hcf;
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter first number:");
+        num1=sc.nextInt();
+        System.out.println("Enter second number:");
+        num2=sc.nextInt();
+
+        temp1=num1;
+        temp2=num2;
+        while(temp2!=0){
+            temp=temp2;
+            temp2=temp1%temp2;
+            temp1=temp;
+        }
+        hcf=temp1;
+        System.out.println("HCF of input numbers:"+hcf);
+        //System.out.println("LCM of input numbers:"+lcm);
+        sc.close();
+    }
+}
+Output:
+Enter first number:10
+Enter second number:
+30
+HCF of input numbers:10
+
+
+
+
+12.Fibonacci series in Java | In the Fibonacci series, the next element will be the sum of the previous two elements. 
+The Fibonacci sequence is a series of numbers where a number is found by adding up the two numbers before it. 
+Starting with 0 and 1, the sequence goes 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, and so on…
+
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+	int n=10;
+    fibonacci(n);
+    }
+    static void  fibonacci(int n)
+    {
+        int num1=0,num2=1;
+        int counter=0;
+        while(counter<n)
+        {
+            System.out.println(num1 +" ");
+            int num3=num2+num1;
+            num1=num2;
+            num2=num3;
+            counter=counter+1;
+        }
+    }
+}
+Output:
+0 
+1 
+1 
+2 
+3 
+5 
+8 
+13 
+21 
+34 
+
+
+
+
+
+13.Conversion from Celsius to Fahrenheit and from Fahrenheit to Celsius has an 
+important role in the conversion of units system. In this post, 
+we will develop a Java program to convert Celsius to Fahrenheit.
+The formula used to convert from Celsius to Fahrenheit is given as, °F= (°C * 9/5) + 32
+
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+	double celsius=10.0,fahrenheit=0.0;
+    fahrenheit=(celsius*1.8)+32;
+        System.out.println("value of temp in fahrenheit:"+fahrenheit);
+
+    }
+}
+Output:
+value of temp in fahrenheit:50.0
+
+
+
+
+14.Write a Java program to merge two sorted arrays.
+
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+	int[] arr1={1,3,5,7};
+    int n1=arr1.length;
+    int[]arr2={2,4,6,8};
+    int n2=arr2.length;
+    int[]arr3=new int[n1+n2];
+    mergeArrays(arr1,arr2,n1,n2,arr3);
+        System.out.println("Arrays after merging");
+        for(int i=0;i<n1+n2;i++)
+            System.out.print(arr3[i]+ " ");
+    }
+    public static void mergeArrays(int[] arr1,int[] arr2, int n1,int n2,int[] arr3) {
+        int i = 0, j = 0, k = 0;
+        while (i < n1 && j < n2) {
+            if (arr1[i] < arr2[j])
+                arr3[k++] = arr1[i++];
+            else
+                arr3[k++] = arr2[j++];
+
+        }
+        while (i < n1)
+            arr3[k++] = arr1[i++];
+        while (j < n2)
+            arr3[k++] = arr2[j++];
+    
+    }
+}
+Output:
+Arrays after merging
+1 2 3 4 5 6 7 8 
+
+
+
+
+15.How to count repeated elements in an array in Java programming language.
+ If the array is sorted then counting repeated elements in an array will be easy compare to the unsorted array.
+Example1- an unsorted array,
+Array = { 50, 20, 10, 40, 20, 10, 10, 60, 30, 70 };
+Total Repeated elements: 2
+Repeated elements are: 20 10
+
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+        // write your code here
+        int arr[]={50,20,10,40,20,20,10,10,60,30,70};
+        int temp[]=new int[arr.length];
+        int count = 0;
+        for(int i=0;i<arr.length;i++){
+            int element = arr[i];
+            boolean flag = false;
+            for(int j=0;j<count;j++){
+                if(temp[j]==element){
+                    flag = true;
+                    break;
+                }
+            }
+            if(flag){
+                continue;
+            }
+            for(int j=i+1;j<arr.length;j++){
+                if(arr[j] == element){
+                    temp[count++]=element;
+                    break;
+                }
+            }
+        }
+        System.out.println("total repeted elements: "+count);
+        System.out.println("repeted elements are: ");
+        for(int i=0;i<count;i++){
+            System.out.println(temp[i]+" ");
+        }
+    }
+}
+
+Output:
+total repeted elements: 2
+repeted elements are: 
+20 
+10 
+
+
+
+16.An array can contain duplicate elements, and the array may be sorted or unsorted.
+ Let us see different ways to remove duplicates from a given array in Java programming language.
+Sorted array = {10, 10, 20, 30, 40, 40, 50};
+After removing the duplicates from array = {10, 20, 30, 40, 50};
+Unsorted Array = {30, 50, 20, 50, 10, 20, 30, 10, 10, 40};
+After removing the duplicates from array = {30, 50, 20, 10, 40};
+
+package com.thbs;
+
+
+import java.util.Arrays;
+
+public class Main {
+
+    public static void main(String[] args) {
+        // write your code here
+        int arr[] = {30, 50, 20, 50, 10, 20, 30, 10, 10, 40};
+        int newArr[] = removeDuplicates(arr);
+        System.out.println("Original array: " + Arrays.toString(arr));
+        System.out.println("After removing duplicates: " + Arrays.toString(newArr));
+    }
+    public static int[] removeDuplicates(int[] arr) {
+        int index = 1;
+        for (int i = 1; i < arr.length; i++) {
+            int element = arr[i];
+            for(int j=0; j<index; j++) {
+                if(arr[j] == element) {
+                    break;
+                }
+                if(j == index-1) {
+                    arr[index++] = element;
+                    break;
+                }
+            }
+
+        }
+        return Arrays.copyOf(arr, index);
+    }
+}
+Output:
+Original array: [30, 50, 20, 10, 40, 20, 30, 10, 10, 40]
+After removing duplicates: [30, 50, 20, 10, 40]
+
+
+
+
+17.How to Insert an element at a specific position in an Array in Java? 
+Here we will see examples to insert an element to the array at index. 
+To insert an element at the end see:- Add element in array Java.
+We can insert an element at a specific position in two different ways,
+a) Using a new array
+b) With the help of ArrayList.
+Example:-
+Array = {10, 20, 30, 40, 50};
+Element to be inserted = 99;
+Position = 3;
+Final result = {10, 20, 30, 99, 40, 50};
+
+package com.thbs;
+import java.util.Arrays;
+public class Main {
+    public static int[] addElement(int[] arr, int element) {
+        int temp[] = new int[arr.length+1];
+        for (int i = 0; i < arr.length; i++) {
+            temp[i] = arr[i];
+        }
+        temp[arr.length] = element;
+        return temp;
+    }
+
+    public static void main(String[] args) {
+        int arr[] = { 30, 50, 20, 40, 10};
+        int element = 99;
+        System.out.println("Original array: " + Arrays.toString(arr));
+        arr = addElement(arr, element);
+        System.out.println("New array: " + Arrays.toString(arr));
+    }
+}
+Output:
+Original array: [30, 50, 20, 40, 10]
+New array: [30, 50, 20, 40, 10, 99]
+
+
+
+
+18.In mathematics, a number is called an Automorphic number if the square of the number ends with the same number.
+ Example of Automorphic numbers are:- 5, 6, 25, 76, e.t.c..
+
+package com.thbs;
+
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Enter the number");
+        int n=sc.nextInt();
+        if(isAutomorphic(n)){System.out.println(n+" is automorphic");
+        }
+        else
+            
+    System.out.println(n+" is not automorphic");
+    }
+    static boolean isAutomorphic(int num)
+    {int square = num * num;
+        while (num > 0)
+        {if (num % 10 != square % 10)
+            return false;
+    num = num/10;
+    square = square/10;
+        }return true;
+    }
+}
+Output:
+Enter the number
+5
+5 is automorphic
+
+
+
+
+19.we will develop a Java program for a BMI calculator.
+The BMI stands for Body Mass Index. It is a measure of health based on height and weight. 
+It can be calculated by taking the weight in kilograms and dividing it by the square of your height in meters.
+Formula for Calculating BMI in Metric Units,
+BMI = (Weight in Kg) / (Height in Meters * Height in Meters)
+For example,
+weight = 75 kg, height = 1.5 m
+BMI = 75 / (1.5*1.5) = 33.33
+Using the range of BMI, individuals are classified as underweight, normal or overweight.
+ Its value is in a specific range for a healthy individual. The following table shows the main BMI categories,
+BMI Range          Category
+< 18.5            Thinness
+18.5 – 25          Normal
+25 – 30         Overweight
+> 30              Obese
+BMI calculator finds whether the person is underweight, normal, overweight, or obese.
+The person who wants to lose their want can use a weight loss calculator which can tell the daily caloric
+requirements, and many easy tips to lose weight.
+
+package com.thbs;
+
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args)    {
+        System.out.print("Please enter your weight in kg: ");
+        Scanner s = new Scanner(System.in);
+        float weight = s.nextFloat();
+        System.out.print("Please enter your height in m: ");
+        float height = s.nextFloat();
+        calculateBMI(weight,height);
+    }
+    private static void calculateBMI(float weight,float height)
+    {
+        float bmi = (weight)/(height*height);
+    System.out.println("Your BMI is: "+bmi);
+    printBMICategory(bmi);
+    }
+    private static void printBMICategory(float bmi) {if(bmi < 18.5)
+    {
+        System.out.println("You are thinness");
+    }
+    else if (bmi < 25) {System.out.println("You are normal");
+    }
+    else if (bmi < 30) 
+    {
+        System.out.println("You are overweight");
+    }
+    else {
+        System.out.println("You are obese");
+    }
+    }
+}
+Output:
+Please enter your weight in kg: 80
+Please enter your height in m: 5.1
+Your BMI is: 3.0757403
+You are thinness
+
+
+
+
+
+20.A number is said to be a magic number if the sum of its digits is calculated till a single digit recursively by
+adding the sum of the digits after every addition. 
+If the single-digit comes out to be 1, then the number is a magic number.
+ Example of magic numbers are:- 10, 19, 28, 55, 1234 e.t.c.
+
+package com.thbs;
+
+
+import java.util.Scanner;
+public class Main{
+    public static void main (String[] args)
+    {
+        int n;Scanner sc = new Scanner(System.in);
+
+        System.out.println("Enter the number:");
+        n= sc.nextInt();
+        if(isMagic(n))
+        {
+            System.out.println(n+" is a magic number");
+        }
+        else
+        {
+            System.out.println(n+" is not a magic number");
+        }
+    }
+    public static boolean isMagic(int n)
+    {
+        int sum = 0;while (n > 0 || sum > 9)
+        {
+            if(n==0){n = sum;sum = 0;
+            }
+            sum += n%10;n/=10;
+        }
+        return (sum == 1);
+    }
+}
+Output:
+Enter the number:
+10
+10 is a magic number
+
+
+
+
+
+
