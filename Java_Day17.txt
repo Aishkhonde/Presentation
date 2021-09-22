@@ -1,0 +1,393 @@
+Dicegame:
+
+Player.java:
+package com.thbs.playerpack;
+
+public class Player {
+    Dice d1;
+    Dice d2;
+
+    public Player() {
+        d1 = new Dice();
+        d2 = new Dice();
+
+    }
+
+    public int play() {
+        return (d1.roll() + d2.roll());
+
+    }
+
+    public int getD1Score() {
+        return (d1.getfValue());
+    }
+
+    public int getD2Score() {
+        return (d2.getfValue());
+    }
+
+Dice.java:
+package com.thbs.playerpack;
+
+import java.util.Random;
+
+public class Dice {
+    private  int fValue;
+    public int roll()
+    {
+        Random rand=new Random();
+        fValue=((int) rand.nextInt(5)+1);//starts from 1 to 6----->nextInt(5)=6-1=5
+        return fValue;
+    }
+
+    public int getfValue() {
+        return fValue;
+    }
+
+}
+
+Main.java prog:
+package com.thbs;
+
+import com.thbs.playerpack.Player;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Player p1=new Player();
+       int p1Score=p1.play();
+        int p1d1Score=p1.getD1Score();
+        int p1d2Score=p1.getD2Score();
+        System.out.println("p1 Scored"+p1Score);
+        System.out.println("p1 d1 :"+p1d1Score+"  "+"p1 d2:"+p1d2Score);
+
+        Player p2=new Player();
+        int p2Score=p2.play();
+        int p2d1Score=p2.getD1Score();
+        int p2d2Score=p2.getD2Score();
+
+        System.out.println("p2 Scored"+p2Score);
+        System.out.println("p2 d1 :"+p2d1Score+"  "+"p2 d2:"+p2d2Score);
+
+        if(p1Score>p2Score)
+            System.out.println("p1 won the game!!!");
+        else
+            if(p1Score==p2Score)
+            System.out.println("Game draw!!!!");
+            else
+                System.out.println("p2 won the game!!!");
+
+
+
+    }
+}
+Output:
+p1 Scored6
+p1 d1 :5  p1 d2:1
+p2 Scored4
+p2 d1 :3  p2 d2:1
+p1 won the game!!!
+
+
+
+HAS-A demo:
+
+Person.java:
+package com.thbs;
+
+public class Person {
+    private int personId;
+    private String personName;
+    private Address adrss;
+
+    public Person(int personId, String personName, Address adrss) {
+        this.personId = personId;
+        this.personName = personName;
+        this.adrss = adrss;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "personId=" + personId +
+                ", personName='" + personName + '\'' +
+                ", adrss=" + adrss +
+                '}';
+    }
+}
+
+Address.java:
+package com.thbs;
+
+public class Address {
+    private int doorNo;
+    private String city;
+    private String street;
+    private String state;
+    private int pincode;
+
+    public Address(int doorNo, String city, String street, String state, int pincode) {
+        this.doorNo = doorNo;
+        this.city = city;
+        this.street = street;
+        this.state = state;
+        this.pincode = pincode;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "doorNo=" + doorNo +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", state='" + state + '\'' +
+                ", pincode=" + pincode +
+                '}';
+    }
+}
+
+Main.java prg:
+package com.thbs;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Address adrss=new Address(12,"Bang","Ecity","Karnataka",560100);
+
+	Person person =new Person(100,"Aishwarya",adrss);
+        System.out.println(person);
+    }
+}
+Output:
+Person{personId=100, personName='Aishwarya', adrss=Address{doorNo=12, city='Bang', 
+street='Ecity', state='Karnataka', pincode=560100}}
+
+
+Staticvariable demo:
+Person.java:
+public class Person {
+    //public static int count;
+    public  static int count;
+    private int pId;
+    private String pName;
+    static {
+          count=0;
+    }
+
+    public Person(int pId, String pName) {
+        this.pId = pId;
+        this.pName = pName;
+        ++count;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "pId=" + pId +
+                ", pName='" + pName + '\'' +
+                '}';
+    }
+
+    public static int getCount() {
+        return count;
+    }
+}
+
+Main.java prog:
+package com.thbs.mainpack;
+
+import com.thbs.spack.Person;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Person p1=new Person(100,"Aishwarya");
+        System.out.println(p1);
+        Person p2=new Person(200,"Divya");
+        System.out.println(p2);
+        System.out.println("No. of objects:"+Person.getCount());//sout(Person.getcount()
+        System.out.println(Person.count);
+
+    }
+}
+Output:
+Person{pId=100, pName='Aishwarya'}
+Person{pId=200, pName='Divya'}
+No. of objects:2
+2
+
+
+Function Overloading Demo:
+Tax.java:
+package com.thbs.utility;
+
+public class Tax {
+    public  double calc_tax(long amt,char status)
+    {
+        return(amt*0.1);
+    }
+    public int calc_tax(long amt)
+    {
+        return  ((int)(amt*0.25));
+    }
+
+}
+Summation.java:
+package com.thbs.utility;
+
+public class Summation {
+    public  int add(int x,int y)
+    {
+        return(x+y);
+    }
+    public  double add(int x,float y,double z)
+    {
+        return(x+y+z);
+
+    }
+    public String add(String str1,String str2)
+    {
+        return (str1+" "+str2);
+    }
+}
+Average.java:
+package com.thbs.utility;
+
+public class Average {
+    //this demo is for ... operator in java
+    public double calc_avg(int...numbers)
+    {
+        int sum=0;
+        for(int n:numbers)
+        {
+           sum+=n;
+
+        }
+        return (sum/numbers.length);
+    }
+    public double calc_avg(double d,int...numbers)
+    {
+        double sum=d;
+        for (int n:numbers)
+        {
+            sum+=n;
+
+        }
+        return (sum/(numbers.length+1));
+
+    }
+    public double calc_avg(int d,long l,double...numbers)
+    {
+        double sum=d+l;
+        for (double x:numbers)
+        {
+            sum+=x;
+
+        }
+        return (sum/(numbers.length+2));
+    }
+}
+Main.java prog:
+package com.thbs.mainpack;
+
+import com.thbs.utility.Average;
+import com.thbs.utility.Summation;
+import com.thbs.utility.Tax;
+
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+       /* Summation sob=new Summation();
+        System.out.println(sob.add(10,10));
+        System.out.println(sob.add(10,15.5F,12.0));
+        System.out.println(sob.add("Good","Afternoon"));*/
+
+        /*Tax tob=new Tax();
+        System.out.println("Tax calculated for consultant:"+tob.calc_tax(20000,'c'));
+        System.out.println("Tax calculated for employee:"+tob.calc_tax(20000));
+*/
+
+        Average avgob=new Average();
+
+        System.out.println( avgob.calc_avg(10,15));
+        System.out.println( avgob.calc_avg(10,15,10,15));
+        System.out.println( avgob.calc_avg(15.5,10,15,10));
+        System.out.println( avgob.calc_avg(10,15521,15.5,20.8,54));
+
+
+
+    }
+}
+Output:
+12.0
+12.0
+12.625
+3124.2599999999998
+
+
+
+Constructor Overloading Demo:
+Circle.java:
+package com.thbs.circle;
+
+public class Circle {
+    private  double radius;
+    private  String colour;
+//nonparametarized
+    public Circle() {
+        /*this.radius=3.5;
+        this.colour="blue";*/
+        this(3.5,"Blue");//invoking the fully parametarized constructor
+
+    }
+
+    public Circle(double radius) {
+        this(radius,"Brown");
+
+    }
+    public Circle(String colour) {
+        this(6.5,colour);
+
+    }
+
+
+    //complete parametarized constructor//complete circle
+    public Circle(double radius, String colour) {
+        this.radius = radius;
+        this.colour = colour;
+    }
+
+    @Override
+    public String toString() {
+        return "Circle{" +
+                "radius=" + radius +
+                ", colour='" + colour + '\'' +
+                '}';
+    }
+}
+Main.java prog:
+package com.thbs.canvas;
+
+import com.thbs.circle.Circle;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Circle c1=new Circle();
+        System.out.println(c1);
+        Circle c2=new Circle(4.5);
+        System.out.println(c2);
+        Circle c3=new Circle("Red");
+        System.out.println(c3);
+        Circle c4=new Circle(5.5,"Pink");
+        System.out.println(c4);
+    }
+}
+Output:
+Circle{radius=3.5, colour='Blue'}
+Circle{radius=4.5, colour='Brown'}
+Circle{radius=6.5, colour='Red'}
+Circle{radius=5.5, colour='Pink'}
