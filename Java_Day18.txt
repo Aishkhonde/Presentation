@@ -1,0 +1,618 @@
+Interface Abstract Class Demo:
+
+Automobile.java:
+package com.thbs.vpack;
+
+public interface Automobile {
+
+    String start();
+    int increSpeed(int n);
+    String stop();
+}
+
+Vehicle.java:
+package com.thbs.vpack;
+
+public abstract class Vehicle implements Automobile{
+    protected int regNo;
+    protected String model;
+    protected int currSpeed;
+
+
+    public Vehicle(int regNo, String model, int currSpeed) {
+        this.regNo = regNo;
+        this.model = model;
+        this.currSpeed = currSpeed;
+    }
+
+    @Override
+    public String start() {
+        return "Vehicle Started!!!";
+    }
+
+    @Override
+    public abstract int increSpeed(int n);
+
+    @Override
+    public String stop() {
+        return "Vehicle Stopped";
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "regNo=" + regNo +
+                ", model='" + model + '\'' +
+                ", currSpeed=" + currSpeed +
+                '}';
+    }
+}
+
+Car.java:
+package com.thbs.vpack;
+
+public class Car extends Vehicle {
+    private int maxSpeed;
+    private String type;
+
+    public Car (int regNo,String model,int currSpeed,int maxSpeed,String type){
+        super(regNo,model,currSpeed);
+        this.maxSpeed=maxSpeed;
+        this.type=type;
+    }
+
+    @Override
+    public int increSpeed(int n) {
+        if(currSpeed+n<maxSpeed)
+            currSpeed+=n;
+        else
+            currSpeed=-1;
+        return (currSpeed);
+    }
+}
+
+Main.java:
+package com.thbs.mainpack;
+
+import com.thbs.vpack.Automobile;
+import com.thbs.vpack.Car;
+import com.thbs.vpack.Vehicle;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+
+        Automobile car1=new Car(1927,"q3",40,120,"Sedan");
+
+        Car car2=new Car(1934,"q3",40,120,"Sedan");
+        Vehicle car3=new Car(1968,"q3",40,120,"Sedan");
+
+        System.out.println(car1.start());
+        int increvalue=car1.increSpeed(140);
+        if(increvalue==-1)
+        {
+            System.out.println("Alert!!!!     Stop the car");
+        }
+        else
+            System.out.println("Enjoy your Drive");
+        System.out.println(car1.stop());
+
+    }
+}
+Output:
+Vehicle Started!!!
+Alert!!!!     Stop the car
+Vehicle Stopped
+
+Inheritance Demo:
+Employee.java:
+package com.thbs.emppack;
+
+public class Employee {
+    protected int empId;
+    protected String empName;
+    protected int sal;
+
+    public Employee(int empId, String empName, int sal) {
+
+        this.empId = empId;
+        this.empName = empName;
+        this.sal = sal;
+    }
+
+    public String getDetails()
+    {
+        return (empId+"  "+empName+"  "+sal);
+
+    }
+
+    public int getSal() {
+        return sal;
+    }
+}
+
+Manager.java:
+package com.thbs.emppack;
+
+public class Manager extends Employee{
+    private String deptName;
+    private  int empcount;
+
+    public Manager(int empId, String empName, int sal,String deptName,int empcount) {
+        super(empId, empName, sal);//Constructor chaining,base class constructor invoked within
+                                  // the derived class constructor using super off method
+        this.deptName=deptName;
+        this.empcount=empcount;
+    }
+    public String getDetails() //override the function from base class
+    {
+        return super.getDetails()+"  "+deptName+"  "+empcount;
+
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public int getEmpcount() {
+        return empcount;
+    }
+}
+
+Programmer.java:
+package com.thbs.emppack;
+
+public class Programmer extends Employee{
+    private int noOfProjects;
+    private String skillSet;
+
+    public Programmer(int empId, String empName, int sal,int noOfProjects,String skillSet) {
+        super(empId, empName, sal);
+        this.noOfProjects=noOfProjects;
+        this.skillSet=skillSet;
+    }
+
+    @Override
+    public String getDetails() {
+        return super.getDetails()+"  "+noOfProjects+"  "+skillSet;
+    }
+
+    public int getNoOfProjects() {
+        return noOfProjects;
+    }
+
+    public String getSkillSet() {
+        return skillSet;
+    }
+}
+
+Tax.java:
+package com.thbs.taxpack;
+
+import com.thbs.emppack.Employee;
+import com.thbs.emppack.Manager;
+import com.thbs.emppack.Programmer;
+
+public class Tax {
+    public  static  double calc_Tax(Employee e)
+    {
+        // suppose a tax calculation is different for different types of employees
+        //to identify the type we can use operator :instanceof operator
+        if(e instanceof Manager)
+            return(e.getSal()*0.2);
+            else
+                if(e instanceof Programmer)
+                    return(e.getSal()*0.1);
+                    else
+                        return (0);
+
+
+
+
+
+    }
+}
+
+Main.java:
+package com.thbs.mainpack;
+
+import com.thbs.emppack.Employee;
+import com.thbs.emppack.Manager;
+import com.thbs.emppack.Programmer;
+import com.thbs.taxpack.Tax;
+
+public class Main {
+
+    public static void main(String[] args) {
+        /*Employee employee1 = new Employee(100, "Aishwarya", 10000);
+        System.out.println(employee1.getDetails());
+        Manager M1 = new Manager(200, "Divya", 40000, "HR", 5);
+        System.out.println(M1.getDetails());
+        Programmer p1 = new Programmer(300, "Vani", 30000, 3, "Java");
+        System.out.println(p1.getDetails());
+
+
+        //_____________________________________________________
+        //giving a base a class reference to a derived class object
+        Employee e1 = new Manager(201, "Ram", 40000, "IT", 5);
+        System.out.println(e1.getDetails());
+        //this is known as downcasting
+        Manager M2=(Manager)e1;
+        System.out.println("Works for:" +M2.getDeptName()+" Department");
+        */
+        //utility of upcasting and downcasting
+        Employee[] emparr=new Employee[4];
+        emparr[0]=new Employee(100,"Diksha",20000);
+        emparr[1]=new Manager(200,"Ankit",40000,"IT",10);
+        emparr[2]=new Programmer(300,"Smriti",30000,3,"Java Scripts");
+        emparr[3]=new Programmer(301,"Manoj",30000,2,"Java");
+        System.out.println("Printing details of employee:");
+        for(Employee e:emparr)
+        {
+            System.out.println(e.getDetails()+  "Tax Paid:"+ Tax.calc_Tax(e));
+        }
+
+
+    }
+}
+Output:
+Printing details of employee:
+100  Diksha  20000Tax Paid:0.0
+200  Ankit  40000  IT  10Tax Paid:8000.0
+300  Smriti  30000  3  Java ScriptsTax Paid:3000.0
+301  Manoj  30000  2  JavaTax Paid:3000.0
+
+Static Variable Function:
+package com.thbs.accountpack;
+
+import java.util.Random;
+
+public class Account {
+    private static int count;
+    private final long accNo;
+    private String accType;
+    private double balance;
+
+    static {
+        count=0;
+    }
+    public static long getCount()
+    {
+       // return (++count);
+        //to create a random accNo
+        Random rand=new Random();
+        count= rand.nextInt(1000)+2000;
+        return count;
+    }
+
+
+    public Account(String accType, double balance) {
+        this.accNo=getCount();
+        this.accType = accType;
+        this.balance = balance;
+    }
+    public double deposit(double amount)
+    {
+        balance+=amount;
+        return amount;
+    }
+    public double withdraw(double amount)
+    {
+        balance-=amount;
+        return amount;
+    }
+
+    public double getBalance() {
+       return balance;
+
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accNo=" + accNo +
+                ", accType='" + accType + '\'' +
+                ", balance=" + balance +
+                '}';
+    }
+}
+
+Main.java:
+package com.thbs.bankpack;
+
+import com.thbs.accountpack.Account;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Account account1=new Account("Saving",5000);
+        System.out.println(account1);
+        System.out.println("Amount withdrawn:"+account1.deposit(6000));
+        System.out.println("current account state: \n"+account1);
+        System.out.println("Amount withdrawn:"+account1.withdraw(1000));
+        System.out.println("current account state: \n"+account1);
+
+        System.out.println("___________________________________");
+        Account account2=new Account("Recurring",5000);
+        System.out.println("current account state: \n"+account2);
+
+    }
+}
+
+Output:
+Account{accNo=2989, accType='Saving', balance=5000.0}
+Amount withdrawn:6000.0
+current account state: 
+Account{accNo=2989, accType='Saving', balance=11000.0}
+Amount withdrawn:1000.0
+current account state: 
+Account{accNo=2989, accType='Saving', balance=10000.0}
+___________________________________
+current account state: 
+Account{accNo=2996, accType='Recurring', balance=5000.0}
+
+Abstract class Demo:
+Employee.java:
+package com.thbs.emppack;
+//An abstract class cannot instanciate/create the object of their own
+public abstract class Employee {
+    protected int empId;
+    protected String empName;
+    protected int sal;
+
+    public Employee(int empId, String empName, int sal) {
+
+        this.empId = empId;
+        this.empName = empName;
+        this.sal = sal;
+    }
+
+    public String getDetails()
+    {
+        return (empId+"  "+empName+"  "+sal);
+
+    }
+         public abstract double calcNetSal();//abstract method:which does not have body only declaration
+    public int getSal() {
+        return sal;
+    }
+
+
+}
+
+Manager.java:
+package com.thbs.emppack;
+
+public class Manager extends Employee{
+    private String deptName;
+    private  int empcount;
+
+    public Manager(int empId, String empName, int sal,String deptName,int empcount) {
+        super(empId, empName, sal);//Constructor chaining,base class constructor invoked within
+                                  // the derived class constructor using super off method
+        this.deptName=deptName;
+        this.empcount=empcount;
+    }
+    /*public String getDetails() //override the function from base class
+    {
+        return super.getDetails()+"  "+deptName+"  "+empcount;
+
+    }*/
+
+    @Override
+    public String toString() {
+        return "Manager{" +
+                "empId=" + empId +
+                ", empName='" + empName + '\'' +
+                ", sal=" + sal +
+                ", deptName='" + deptName + '\'' +
+                ", empcount=" + empcount +
+                '}';
+    }
+
+    @Override
+    public double calcNetSal() {
+        return 20000;
+    }
+
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public int getEmpcount() {
+        return empcount;
+    }
+}
+
+Programmer.java:
+package com.thbs.emppack;
+
+public class Programmer extends Employee{
+    private int noOfProjects;
+    private String skillSet;
+
+    public Programmer(int empId, String empName, int sal,int noOfProjects,String skillSet) {
+        super(empId, empName, sal);
+        this.noOfProjects=noOfProjects;
+        this.skillSet=skillSet;
+    }
+
+   /* @Override  //annotations:small info passed to compiler
+    public String getDetails() {
+        return super.getDetails()+"  "+noOfProjects+"  "+skillSet;
+    }*/
+
+    @Override
+    public String toString() {
+        return "Programmer{" +
+                "empId=" + empId +
+                ", empName='" + empName + '\'' +
+                ", sal=" + sal +
+                ", noOfProjects=" + noOfProjects +
+                ", skillSet='" + skillSet + '\'' +
+                '}';
+    }
+
+    @Override
+    public double calcNetSal() {
+        return 15000;
+    }
+
+    public int getNoOfProjects() {
+        return noOfProjects;
+    }
+
+    public String getSkillSet() {
+        return skillSet;
+    }
+}
+
+Main.java:
+package com.thbs.mainpack;
+
+import com.thbs.emppack.Employee;
+import com.thbs.emppack.Manager;
+import com.thbs.emppack.Programmer;
+
+public class Main {
+
+    public static void main(String[] args) {
+        //Employee e=new Employee(100,"Div",3000);this is not impossible
+        Manager m1=new Manager(200,"krishna",20000,"IT",5);
+        System.out.println(m1+"+Net Salary+  "+m1.calcNetSal());
+        Programmer p1 = new Programmer(300, "Vani", 30000, 3, "Java");
+        System.out.println(p1+ "+Net Salary+"  +p1.calcNetSal());
+
+
+        Employee[] emparr=new Employee[4];
+        emparr[0]=new Manager(200,"Ankit",40000,"IT",10);
+        emparr[1]=new Manager(201,"Ankita",40000,"Finance",10);
+        emparr[2]=new Programmer(300,"Smriti",30000,3,"Java Scripts");
+        emparr[3]=new Programmer(301,"Manoj",30000,2,"Java");
+        System.out.println("printing details of employees");
+        for(Employee e:emparr)
+        {
+            System.out.println(e+ "Net Salary:"+e.calcNetSal());
+        }
+
+
+    }
+}
+Output:
+printing details of employees
+Manager{empId=200, empName='Ankit', sal=40000, deptName='IT', empcount=10}Net Salary:20000.0
+Manager{empId=201, empName='Ankita', sal=40000, deptName='Finance', empcount=10}Net Salary:20000.0
+Programmer{empId=300, empName='Smriti', sal=30000, noOfProjects=3, skillSet='Java Scripts'}Net Salary:15000.0
+Programmer{empId=301, empName='Manoj', sal=30000, noOfProjects=2, skillSet='Java'}Net Salary:15000.0
+
+Interface Demo:
+Interface1.java:
+package com.thbs.pack1;
+
+public interface Interface1 {
+    void m1();  //public and abstract
+    void m2();
+    void m3();
+
+}
+
+Interface2.java:
+package com.thbs.pack1;
+
+public interface Interface2 {
+    int count=10;   //by default the variable is public static final variable
+    void m4();   //public abstract methods
+}
+
+Interface3.java:
+package com.thbs.pack1;
+
+public interface Interface3 extends Interface2,Interface1 {
+
+    @Override
+    void m1();
+
+    @Override
+    void m2();
+
+    @Override
+    void m3();
+
+    @Override
+    void m4();
+}
+
+Class.java:
+package com.thbs.pack1;
+
+public class Class1 implements Interface3{
+    @Override
+    public void m1() {
+        
+    }
+
+    @Override
+    public void m2() {
+
+    }
+
+    @Override
+    public void m3() {
+
+    }
+
+    @Override
+    public void m4() {
+
+    }
+
+
+    /*@Override
+    public void m1() {
+        System.out.println("In m1:");
+
+    }
+
+    @Override
+    public void m2() {
+        System.out.println("In m2:");
+
+    }
+
+    @Override
+    public void m3() {
+        System.out.println("In m3");
+
+    }
+
+
+    @Override
+    public void m4() {
+        System.out.println("In m4:");
+        System.out.println("Count value:"+Interface2.count);
+
+    }*/
+}
+
+Main.java:
+package com.thbs.mainpack;
+
+import com.thbs.pack1.Class1;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Class1 ob=new Class1();
+        ob.m1();
+        ob.m4();
+    }
+}
+
+Output:
+In m1:
+In m4:
+Count value:10
+
+
+
