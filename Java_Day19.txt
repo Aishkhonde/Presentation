@@ -1,0 +1,441 @@
+ExceptionDemo1:
+Main.java:
+package com.thbs.mainpack;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        int result=0;
+        //ArrayIndexOutOfBoundsException,NumberFormatException,
+        // ArithmeticException(10 0)--->denominator is 0
+        try {
+            int n1 = Integer.parseInt(args[0]);//command line argument
+            int n2 = Integer.parseInt(args[1]);
+            result = n1 / n2;
+            //ArithmeticException is created and thrown
+        }catch(ArithmeticException e)
+        {
+            System.out.println("Denominator is zero"+e.getMessage());
+        }
+        catch(NumberFormatException e)
+        {
+            System.out.println("Invalid Inputs...."+e.getMessage());
+
+        }
+        catch(ArrayIndexOutOfBoundsException e)
+        {
+            //System.out.println("Insufficient Inputs..."+e.getMessage());
+            e.printStackTrace();
+        }
+        catch (Exception e)
+        {
+            System.out.println("Exception Occurred"+e.getMessage());
+        }
+        finally {
+            System.out.println(result);
+
+        }
+
+        System.out.println("Bye!!!!");
+
+    }
+}
+Output:
+5
+Bye!!!!
+
+
+Exception Demo2:
+ReadInput.java:
+package com.thbs.exceptionpack;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+//for checked exception
+public class ReadInput {
+    public static String readInput1(){
+        try(InputStreamReader ir=new InputStreamReader(System.in);
+            BufferedReader br=new BufferedReader(ir);)
+        {
+            System.out.println("Read two input value:");
+            String str1 = br.readLine();
+            String str2 = br.readLine();
+            int result = Integer.parseInt(str1) / Integer.parseInt(str2);
+            return ("result"+result);
+
+        }catch (ArithmeticException e) {
+            return ("Denominator is zero" + e.getMessage());
+        } catch (NumberFormatException e) {
+            return ("Invalid Inputs...." + e.getMessage());
+
+        }
+
+        catch (IOException e) {
+            return ("Problem occurred in the console:"+e.getMessage());
+        }
+
+    }
+    public static int readInput2() throws IOException,NumberFormatException,ArithmeticException {
+
+        InputStreamReader ir=new InputStreamReader(System.in);
+        BufferedReader br=new BufferedReader(ir);
+
+            System.out.println("Read two input value:");
+            String str1 = br.readLine();
+            String str2 = br.readLine();
+            int result = Integer.parseInt(str1) / Integer.parseInt(str2);
+            return (result);
+
+    }
+
+
+
+
+
+
+    public static void readInput() {
+        InputStreamReader ir = null;
+        BufferedReader br = null;
+
+        String str1, str2;
+        //InputStreamReader is pipelined with BufferedReader
+        ir = new InputStreamReader(System.in);
+        br = new BufferedReader(ir);
+        System.out.println("Read two input value:");
+        try {
+            str1 = br.readLine();
+            str2 = br.readLine();
+            int result = Integer.parseInt(str1) / Integer.parseInt(str2);
+            System.out.println(result);
+        } catch (ArithmeticException e) {
+            System.out.println("Denominator is zero" + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid Inputs...." + e.getMessage());
+
+        } catch (IOException e) {
+            System.out.println("Resource Error...." + e.getMessage());
+            //e.printStackTrace();
+        } finally {
+            try {
+                ir.close();
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+}
+
+Main.java:
+package com.thbs.mainpack;
+
+import com.thbs.exceptionpack.ReadInput;
+
+import java.io.IOException;
+
+public class Main {
+
+    public static void main(String[] args)  {
+        //ReadInput.readInput();
+       // ReadInput.readInput1();
+       /* try {
+            ReadInput.readInput2();
+        }catch (ArithmeticException e) {
+            System.out.println("Denominator is zero" + e.getMessage());
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid Inputs...." + e.getMessage());
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }*/
+        System.out.println(ReadInput.readInput1());
+    }
+}
+
+Output:
+Read two input value:
+10
+0
+Denominator is zero/ by zero
+
+Custom Exception Demo1:
+InsufficientLeaveException.java:
+package com.thbs.exceptionpack;
+//this custom exception registered as UnChecked Exception
+//public class InsufficientLeaveException extends Runtime{
+
+//this custom exception registered as Checked Exception
+public class InsufficientLeaveException extends Exception {
+
+    private  String msg;
+
+    public InsufficientLeaveException(String msg)
+    {
+        this.msg=msg;
+    }
+
+
+    @Override
+    public String getMessage() {
+        return msg;
+    }
+}
+
+Employee.java:
+package com.thbs.emppack;
+
+import com.thbs.exceptionpack.InsufficientLeaveException;
+
+public class Employee {
+      private  int empId;
+      private int bLeave;
+
+    public Employee(int empId, int bLeave) {
+        this.empId = empId;
+        this.bLeave = bLeave;
+    }
+    public String applyLeave(int n) throws InsufficientLeaveException
+    {
+        if(bLeave<n)
+           throw  new InsufficientLeaveException("Insufficient Leave......");
+        else
+            bLeave-=n;
+        return ("Leave Sanctioned....Happy Time!!!");
+    }
+
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "empId=" + empId +
+                ", bLeave=" + bLeave +
+                '}';
+    }
+}
+
+Main.java:
+package com.thbs.mainpack;
+
+import com.thbs.emppack.Employee;
+import com.thbs.exceptionpack.InsufficientLeaveException;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+
+        Employee employee1=new Employee(100,15);
+        System.out.println(employee1);
+        try {
+            System.out.println(employee1.applyLeave(10));
+        } catch (InsufficientLeaveException e) {
+            e.printStackTrace();
+        }
+        System.out.println(employee1);
+        try {
+            System.out.println(employee1.applyLeave(10));
+        } catch (InsufficientLeaveException e) {
+            System.out.println(e.getMessage());;
+        }
+        System.out.println(employee1);
+
+
+    }
+}
+Output:
+Employee{empId=100, bLeave=15}
+Leave Sanctioned....Happy Time!!!
+Employee{empId=100, bLeave=5}
+Insufficient Leave......
+Employee{empId=100, bLeave=5}
+
+Custom Exception Demo2:
+InvalidException.java:
+package com.thbs.exceptionpack;
+
+public class InvalidAgeException extends  Exception {
+
+    private String msg;
+
+    public InvalidAgeException(String msg) {
+        this.msg = msg;
+    }
+
+    @Override
+    public String getMessage() {
+        return msg;
+    }
+}
+
+Citizen.java
+package com.thbs.cpack;
+
+import com.thbs.exceptionpack.InvalidAgeException;
+
+public class Citizen {
+    private  int aadharNo;
+    private String name;
+    private int age;
+
+    public Citizen(int aadharNo, String name, int age) {
+        this.aadharNo = aadharNo;
+        this.name = name;
+        this.age = age;
+    }
+    public  String getLicense() throws InvalidAgeException {
+        if(age<18)
+
+        throw new InvalidAgeException("Hey Young master........License Cannot be issued!!!");
+        else
+            if((age<=75)&&(age>18))
+            return ("Congrats......License issued!!!");
+            else
+                return ("hey Senior Citizen....License cannot be issued");
+    }
+
+    @Override
+    public String toString() {
+        return "Citizen{" +
+                "aadharNo=" + aadharNo +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
+
+main.java:
+package com.thbs.mainpack;
+
+import com.thbs.cpack.Citizen;
+import com.thbs.exceptionpack.InvalidAgeException;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Citizen citizen1=new Citizen(1,"Aishwarya",21);
+        System.out.println(citizen1);
+        try {
+            System.out.println(citizen1.getLicense());
+        } catch (InvalidAgeException e) {
+            System.out.println(e.getMessage());;
+        }
+        Citizen citizen2=new Citizen(1,"Div",12);
+        System.out.println(citizen2);
+        try {
+            System.out.println(citizen2.getLicense());
+        } catch (InvalidAgeException e) {
+            System.out.println(e.getMessage());;
+        }
+        Citizen citizen3=new Citizen(1,"Asha",80);
+        System.out.println(citizen3);
+        try {
+            System.out.println(citizen3.getLicense());
+        } catch (InvalidAgeException e) {
+            System.out.println(e.getMessage());;
+        }
+
+    }
+}
+
+Output:
+Citizen{aadharNo=1, name='Aishwarya', age=21}
+Congrats......License issued!!!
+Citizen{aadharNo=1, name='Div', age=12}
+Hey Young master........License Cannot be issued!!!
+Citizen{aadharNo=1, name='Asha', age=80}
+hey Senior Citizen....License cannot be issued
+
+
+Wrapper Class:
+package com.thbs.mainpack;
+
+public class Main {
+
+    public static void main(String[] args) {
+        int i=10;
+        //boxing--->conversion of primitivedataType to Boxing
+        Integer wInt=new Integer(i);
+        System.out.println(wInt);
+        //Unboxing--->coverting boxing to primitive datatypes
+        int i1=wInt.intValue();
+        System.out.println(i1);
+        //Autoboxing
+        Integer wInt1=120;
+        int i2=wInt1.intValue();
+
+        String st="123";
+        int n1=Integer.parseInt(st);
+        int x1=Integer.valueOf(st).intValue();
+        System.out.println(n1+" "+x1);
+
+        String dst="15.5677";
+        double n2=Double.parseDouble(dst);
+        double n3=Double.valueOf(dst).doubleValue();
+        System.out.println(n2+" "+n3);
+    }
+}
+Output:
+10
+10
+123 123
+15.5677 15.5677
+
+Person Array List Demo:
+Person.java
+package com.thbs.ppack;
+
+public class Person {
+    private  int idno;
+    private String name;
+    private int age;
+
+    public Person(int idno, String name, int age) {
+        this.idno = idno;
+        this.name = name;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "idno=" + idno +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
+
+Main.java:
+package com.thbs.mainpack;
+
+import com.thbs.ppack.Person;
+
+import java.util.ArrayList;
+
+public class Main {
+
+    public static void main(String[] args) {
+           ArrayList<Person> pList=new ArrayList<Person>();
+            pList.add(new Person(1,"Aish",21));
+            pList.add(new Person(2,"Divs",25));
+             pList.add(new Person(3,"Vani",34));
+
+             for(Person person:pList )
+             {
+                 System.out.println(person);
+             }
+
+
+
+    }
+}
+
+Output:
+Person{idno=1, name='Aish', age=21}
+Person{idno=2, name='Divs', age=25}
+Person{idno=3, name='Vani', age=34}
