@@ -1,0 +1,610 @@
+Cosmic Class Demo
+MyDate.java
+package com.thbs.mydatepack;
+//to illustrate equals and hashcode
+public class MyDate {
+    private int dd;
+    private int mm;
+    private int yy;
+
+    public MyDate(int dd, int mm, int yy) {
+        this.dd = dd;
+        this.mm = mm;
+        this.yy = yy;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        MyDate d=(MyDate)obj;//---->downCasting
+        //this-->refers to d1, and obj->refers to d3
+        if((this.dd==d.dd)&&(this.mm==d.mm)&&(this.yy==d.yy))
+        return  true;
+        else
+            return false;
+
+
+
+
+    }
+
+    @Override
+    public int hashCode() {
+        return (dd^mm^yy);//XOR operator
+    }
+
+    @Override
+    public String toString() {
+        return "MyDate{" +
+                "dd=" + dd +
+                ", mm=" + mm +
+                ", yy=" + yy +
+                '}';
+    }
+}
+
+Main.Java
+package com.thbs.mainpack;
+
+import com.thbs.mydatepack.MyDate;
+
+public class Main {
+
+    public static void main(String[] args) {
+      /*  MyDate d1=new MyDate(27,9,2021);
+        MyDate d2=new MyDate(27,9,2021);
+        MyDate d4=new MyDate(28,9,2021);
+        MyDate d3=d1; //d1 and d3 references are same
+        System.out.println("********"+d1.equals(d2));
+        //on default it compares the content ,rather comparing the contents
+        System.out.println(d1.equals(d3));
+        System.out.println(d1.equals(d4));
+//operator == compares the references
+        System.out.println(d1==d2);
+        System.out.println(d1==d3);
+        //if two objects are equal then their hashcode should also be equal
+        System.out.println("d1 hashcode:"+d1.hashCode());
+        System.out.println("d2 hashcode:"+d2.hashCode());
+        System.out.println("d3 hashcode:"+d3.hashCode());
+        System.out.println("d4 hashcode:"+d4.hashCode());*/
+        String str1="hello";
+        String str2="hello";
+        String str3=new String("hello");
+        System.out.println(str1.equals(str2));
+        System.out.println(str1.hashCode());
+        System.out.println(str2.hashCode());
+        System.out.println(str1.equals(str3));
+        System.out.println(str3.hashCode());
+        System.out.println(str1==str3);
+
+    }
+}
+
+Output:
+true
+99162322
+99162322
+true
+99162322
+false
+
+Collection Set Demo
+package com.thbs.mainpack;
+
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.TreeSet;
+
+public class Main {
+
+    public static void main(String[] args) {
+        //{Set <---- HashSet}
+        Set s1=new HashSet();//HashSet organizes elements on the hashcode
+        //method used to add or insert any element in the collection uses add()method
+        s1.add(1);
+        s1.add(12.5);
+        s1.add("java");
+        s1.add(null);//null is allowed in a set
+        s1.add(12.3F);
+        //s1 considers all the objects as children of parent class-object class
+        // order of insertion is not followed,so it is called unOrdered set
+
+        System.out.println(s1);
+        //how to convert a set to a particular datatype
+        //we need to specify generic type of set
+
+        Set<String> s2=new HashSet<String>();
+        s2.add("aaa");
+        s2.add("xyz");
+        s2.add("aaa");
+        s2.add("zzz");
+        s2.add("pqr");
+        System.out.println(s2);//it will not allow duplicates,it will not follow the order of insertion
+
+
+        //Linked HashSet
+        //{Set <---- HashSet<----LinkedSet}
+        //it is unsorted,but ordered Set,it follows order of insertion
+        //duplications are not allowed
+        Set<String> s3=new LinkedHashSet<String>();
+        s3.add("aaa");
+        s3.add("xyz");
+        s3.add("aaa");
+        s3.add("zzz");
+        s3.add("pqr");
+        System.out.println(s3);
+
+        //TreeSet
+        //{Set<----Sorted Set<---NavigableSet<--TreeSet
+        //it is sorted set,according to natural ordering is maintained
+        //duplicates are not allowed
+        Set<String> s4=new TreeSet<String>();
+        s4.add("Shivakumar");
+        s4.add("Aishwarya");
+        s4.add("Tasmiya");
+        s4.add("Varun");
+        s4.add("Tasmiya");
+        System.out.println(s4);
+
+
+
+    }
+}
+
+Output:
+[null, 1, java, 12.5, 12.3]
+[aaa, pqr, xyz, zzz]
+[aaa, xyz, zzz, pqr]
+[Aishwarya, Shivakumar, Tasmiya, Varun]
+
+
+Collections List Demo
+package com.thbs.mainpack;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+//dynamically allocated or dynamically growing array
+    //default the size of the array is 10,duplicates are allowed
+    public static void main(String[] args) {
+        List<String> stralist=new ArrayList<String>();
+        stralist.add("Meera");
+        stralist.add("Mary");
+        stralist.add("Arjun");
+        stralist.add("Mythili");
+        stralist.add("Mythili");
+        System.out.println(stralist);
+        //To insert element in 1 index value
+        stralist.add(1,"Mahesh");
+        System.out.println(stralist);
+        stralist.remove(4);
+        System.out.println(stralist);
+        stralist.remove("Mary");
+        System.out.println(stralist);
+
+        ArrayList<String> sublist=new ArrayList<String>();
+        sublist.add("One");
+        sublist.add("Two");
+        sublist.add("Three");
+//merging the arrays
+        stralist.addAll(1,sublist);
+        System.out.println(stralist);
+
+        //traditional for loop
+        for(int i=0;i<stralist.size();i++)
+        {
+            System.out.print(stralist.get(i)+"  ");
+        }
+        System.out.println();
+        //Enhanced for loop
+        for(String s:stralist)
+        {
+            System.out.print(s+"   ");
+        }
+        System.out.println();
+
+        //Iterator class object for iterating the collections
+        Iterator<String> it=stralist.iterator();
+        while(it.hasNext())
+        {
+            System.out.print(it.next().toUpperCase()+"  ");
+
+        }
+        System.out.println();
+
+        Scanner sc=new Scanner(System.in);
+        ArrayList<Integer> ilist=new ArrayList<Integer>();
+        System.out.println("No.of element in an array list:");
+        int n=sc.nextInt();
+        for(int i=0;i<n;i++)
+        {
+            System.out.println("Enter the element:");
+            int ele=sc.nextInt();
+            ilist.add(ele);
+        }
+        int sum=0;
+        Iterator<Integer> it1=ilist.iterator();
+        while(it1.hasNext())
+        {
+            int ele1=it1.next();
+
+            System.out.print(ele1+"  ");
+            sum+=ele1;
+        }
+        System.out.println();
+        System.out.println("Sum of elements in ilist:"+sum);
+
+
+
+
+      sc.close();
+    }
+}
+
+Output:
+[Meera, Mary, Arjun, Mythili, Mythili]
+[Meera, Mahesh, Mary, Arjun, Mythili, Mythili]
+[Meera, Mahesh, Mary, Arjun, Mythili]
+[Meera, Mahesh, Arjun, Mythili]
+[Meera, One, Two, Three, Mahesh, Arjun, Mythili]
+Meera  One  Two  Three  Mahesh  Arjun  Mythili  
+Meera   One   Two   Three   Mahesh   Arjun   Mythili   
+MEERA  ONE  TWO  THREE  MAHESH  ARJUN  MYTHILI  
+No.of element in an array list:
+5
+Enter the element:
+10
+Enter the element:
+20
+Enter the element:
+30
+Enter the element:
+40
+Enter the element:
+50
+10  20  30  40  50  
+Sum of elements in ilist:150
+
+Collection Linked List Demo:
+package com.thbs.mainpack;
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        //Its a doubly linked list
+        //duplicates are allowed
+        //each node hold data and also a link(address)which point to next node in the list
+        //Insertion/deletion is less expensive compared to arraylist
+
+        List<String> l1=new LinkedList<String>();
+        l1.add("Orange");
+        l1.add("Apple");
+        l1.add("Strawberries");
+        System.out.println("Is Empty?"+l1.isEmpty());
+        System.out.println("Contains Strawberries?"+l1.contains("Strawberries"));
+        System.out.println();
+//ListIterator can move both the directions(forward and backward
+        ListIterator<String> it=l1.listIterator();
+        System.out.println("In forward direction:");
+        while(it.hasNext())
+        {
+            System.out.print(it.next()+"  ");
+        }
+        System.out.println();
+        System.out.println("Printing in backward direction:");
+        while(it.hasPrevious())
+        {
+            System.out.print(it.previous()+"  ");
+        }
+        System.out.println();
+
+        Collections.reverse(l1);
+        System.out.println(l1);
+
+        Collections.sort(l1);
+        System.out.println(l1);
+
+        Collections.shuffle(l1);
+        System.out.println(l1);
+
+    }
+}
+
+Output:
+Is Empty?false
+Contains Strawberries?true
+
+In forward direction:
+Orange  Apple  Strawberries  
+Printing in backward direction:
+Strawberries  Apple  Orange  
+[Strawberries, Apple, Orange]
+[Apple, Orange, Strawberries]
+[Orange, Apple, Strawberries]
+
+
+Collection Vector Demo:
+package com.thbs.mainpack;
+
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Vector;
+
+public class Main {
+
+    public static void main(String[] args) {
+//they are thread safe and  are synchronised
+        //Methods are slow compared to arrayList
+        Vector<String> v=new Vector<String>();
+        v.add("Hello");
+        v.add("Good");
+        v.add("Afternoon");
+        Enumeration<String>e=v.elements();
+        while(e.hasMoreElements())
+        {
+            System.out.print(e.nextElement()+"   ");
+
+        }
+        System.out.println();
+        Iterator<String> it=v.iterator();
+        while(it.hasNext()){
+            System.out.print(it.next()+"    ");
+        }
+
+
+
+    }
+}
+
+Output:
+Hello   Good   Afternoon   
+Hello    Good    Afternoon 
+
+
+Collection Stack Demo:
+package com.thbs.mainpack;
+
+import java.util.Stack;
+import java.util.Vector;
+
+public class Main {
+
+    public static void main(String[] args) {
+        //Vector<String> st=new Stack<String>();
+        Stack<String> st=new Stack<String>();
+        st.push("aaa");
+        st.push("bbb");
+        st.push("ccc");
+        System.out.println(st.pop());//removes the element from the stack
+
+        System.out.println(st.peek());//doesnot remove but returns the top most element
+        System.out.println(st);
+
+        //add //search
+        st.add(1,"zzz");
+        System.out.println(st);
+
+        System.out.println(st.search("ccc"));
+        System.out.println(st.search("zzz"));//position of element in the collection
+        System.out.println(st.search("bbb"));
+        System.out.println(st.contains("bbb"));
+    }
+}
+
+Output:
+ccc
+bbb
+[aaa, bbb]
+[aaa, zzz, bbb]
+-1
+2
+1
+true
+
+
+Collection Queues Demo:
+package com.thbs.mainpack;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class Main {
+
+    public static void main(String[] args) {
+	//Queues are implemented using LinkedList
+        Queue<String> q=new LinkedList<String>();
+        q.add("Java");
+        q.add("Java Script");
+        q.add("Dotnet");
+        q.add("HTML5");
+        //remove from front end and add at the rear end
+        //FIFO
+        System.out.println(q.poll());//remove elements in fifo order
+        System.out.println(q);
+        System.out.println(q.peek());//does not remove the element ,
+        // but gives next element which will be removed in fifo order
+        System.out.println(q);
+
+
+
+
+
+
+    }
+}
+
+Output:
+Java
+[Java Script, Dotnet, HTML5]
+Java Script
+[Java Script, Dotnet, HTML5]
+
+
+Collection Maps Demo1:
+package com.thbs.mainpack;
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+	Map<Integer,String> hm=new HashMap<Integer,String>();
+    //method used to insert objects in map(HashMap)
+        //put() method
+        //no order of insertion is followed
+        hm.put(100,"Books");
+        hm.put(200,"pens");
+        hm.put(150,"papers");
+        hm.put(null,null);
+        hm.put(250,null);//we can have only one null key in hashMap
+        // ,no duplicates are allowed,the latest value will override the duplicated value
+        hm.put(350,null);
+        //System.out.println(hm);
+
+        //LinkedHashMap
+//it follows the order of insertion
+        Map<Integer,String> lhm=new LinkedHashMap<Integer,String>();
+        lhm.put(100,"Books");
+        lhm.put(200,"pens");
+        lhm.put(150,"papers");
+        lhm.put(null,null);
+        lhm.put(250,null);
+        //System.out.println(lhm);
+
+        //TreeMap---->sortedMap
+        //null key is not allowed in TreeMap
+        Map<Integer,String> thm=new TreeMap<Integer,String>();
+        thm.put(800,"Books");
+        thm.put(200,"pens");
+        thm.put(50,"papers");
+        //thm.put(null,null);
+        thm.put(250,null);
+        //System.out.println(thm);
+
+
+//HashTable does not allow null key,all these methods are thread safe
+        //same as HashMap,It is unordered Map
+        Map<Integer,String> hb=new Hashtable<Integer,String>();
+        hb.put(800,"Books");
+        hb.put(200,"pens");
+        hb.put(50,"papers");
+        //thm.put(null,null);//does not take null key value at all
+        //hb.put(250,null);
+        System.out.println(hb);
+
+
+
+    }
+}
+
+Output:
+{800=Books, 50=papers, 200=pens}
+
+
+Collection Maps Demo2:
+Customer.java
+package com.thbs.custpack;
+
+public class Customer {
+    private int id;
+    private String name;
+
+    public Customer(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+}
+
+Main.java:
+package com.thbs.mainpack;
+
+import com.thbs.custpack.Customer;
+
+import java.security.Key;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Main {
+
+    public static void main(String[] args){
+      /*  //Product Store:which can hold name and its price
+        Map<String,Integer> hm=new HashMap<String,Integer>();
+        hm.put("Sofa",5000);
+        hm.put("Table",3000);
+        hm.put("Lamp",2000);
+        hm.put("Lampshade",3000);
+        //can we access the keys separately,access the values separately or both separately
+        System.out.println(hm.keySet());
+        System.out.println(hm.values());
+        System.out.println(hm.entrySet());
+
+        //how to iterate the map for keys and values
+        //through the key we can get its value
+        System.out.println("Printing the map elements using for loop:");
+        for(String key:hm.keySet())
+        {
+            System.out.println(key+"  "+hm.get(key));
+        }
+        int totamt=0;
+        for(String key:hm.keySet())
+        {
+            totamt+=hm.get(key);
+
+        }
+        System.out.println("Total Investment: Rs.  "+totamt);*/
+
+        HashMap<Customer,Integer> custmap=new HashMap<Customer,Integer>();
+        custmap.put(new Customer(10,"Rounak"),10000);
+        custmap.put(new Customer(20,"Syed"),7000);
+        custmap.put(new Customer(30,"Amir"),15000);
+        for(Customer cust:custmap.keySet())
+        {
+            System.out.println(cust+"   "+custmap.get(cust));
+        }
+
+        int totsaleamt=0;
+        for(Customer cust:custmap.keySet())
+        {
+         totsaleamt+=custmap.get(cust);
+        }
+        System.out.println("Total Sales Amount:"+totsaleamt);
+
+        Map<String,String> smap=new HashMap<String,String>();
+        smap.put("Karnataka","Bangalore");
+        smap.put("TamilNadu","Chennai");
+        smap.put("Kerala","Trivandram");
+        smap.put("WestBengal","Calcutta");
+        for(String state:smap.keySet())
+        {
+            System.out.println(state+"   "+smap.get(state));
+        }
+
+
+
+    }
+}
+
+Output:
+Customer{id=20, name='Syed'}   7000
+Customer{id=10, name='Rounak'}   10000
+Customer{id=30, name='Amir'}   15000
+Total Sales Amount:32000
+Karnataka   Bangalore
+TamilNadu   Chennai
+WestBengal   Calcutta
+Kerala   Trivandram
+
+
