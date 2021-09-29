@@ -1,0 +1,1396 @@
+Generic Functions with Bound:
+Test.java:
+package com.thbs.tpack;
+
+import java.util.List;
+
+public class Test {
+    //Number is the base class for all the numeric wrapper class
+    public static Number sumOfList(List<? extends Number>nlist) {
+        double s = 0.0;
+        for (Number n : nlist) {
+            s += n.doubleValue();
+        }
+        return s;
+    }
+
+        public static Number sumOfList1(List<? super Double>llist)
+        {
+            double s = 0.0;
+            for (Object n : llist)
+            {
+                s += ((Number) n).doubleValue();
+            }
+            return s;
+        }
+    public static Number sumOfList2(List<? >list)
+    {
+        double s = 0.0;
+        for (Object n : list)
+        {
+            s += ((Number) n).doubleValue();
+        }
+        return s;
+    }
+
+}
+
+Main.java:
+package com.thbs.mainpack;
+
+import com.thbs.tpack.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) {
+        ArrayList<Integer> ilist=new ArrayList<Integer>();
+        ilist.add(10);
+        ilist.add(10);
+        ilist.add(10);
+        ilist.add(10);
+        ilist.add(10);
+        ilist.add(10);
+        System.out.println(Test.sumOfList(ilist));
+
+
+        ArrayList<Double> dlist=new ArrayList<>();
+        dlist.add(10.0);
+        dlist.add(10.0);
+        dlist.add(10.0);
+        dlist.add(10.0);
+        dlist.add(10.0);
+        dlist.add(10.0);
+
+        System.out.println(Test.sumOfList1(dlist));
+
+        ArrayList<Double> olist=new ArrayList<Double>();
+        olist.add(10.0);
+        olist.add(10.0);
+        olist.add(10.0);
+        olist.add(10.0);
+        olist.add(10.0);
+
+
+
+        System.out.println(Test.sumOfList2(olist));
+
+
+
+
+
+
+    }
+}
+Output:
+60.0
+60.0
+50.0
+
+Junit Demo1:
+EvenTest.java:
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+public class EvenTest {
+    @Test
+    public void test1(){
+        EvenOddClass ob=new EvenOddClass();
+        assertEquals(true,ob.isEvenNumber(12));
+    }
+    @Test
+    public void test2(){
+        EvenOddClass ob=new EvenOddClass();
+        assertEquals(false,ob.isEvenNumber(11));
+    }
+}
+
+Main.java:
+public class EvenOddClass {
+    public boolean isEvenNumber(int number)
+    {
+        if(number%2==0) {
+            return true;
+        }
+        return false;
+
+    }
+}
+
+
+Junit Demo2:
+Main.java:
+import org.junit.Test;
+
+import static org.junit.Assert.*;
+
+public class TestClass {
+    @Test
+    public  void test(){
+        int val1=5;
+        int val2=6;
+        assertTrue(val1<val2);
+        assertFalse(val1>val2);
+
+        String str1="abc";
+        String str2="abc";
+
+        //if both the references are same
+        assertSame(str1,str2);
+         String[] earray={"One","Two","Three"};
+         String[] rarray={"One","Two","Three"};
+
+         assertArrayEquals(earray,rarray);
+         assertEquals(str1,str2);
+
+    }
+}
+
+
+Junit Suite Demo
+Test1.java:
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+public class Test1 {
+    String message="Robert";
+
+    MessageUtil mob=new MessageUtil(message);
+
+    @Test
+    public void Test()
+    {
+        System.out.println("Inside test1 testing printMessage method");
+        assertEquals(message,mob.printMessage());
+
+    }
+}
+
+Test2.java:
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+
+public class Test2 {
+
+    String message="Robert";
+
+    MessageUtil mob=new MessageUtil(message);
+
+    @Test
+    public void Test()
+    {
+        System.out.println("Inside test1 testing salutationMessage method");
+        message="Hello!!"+message;
+        assertEquals(message,mob.salutationMessage());
+
+    }
+}
+
+TestSuite.java:
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses(
+        {
+                Test1.class,
+                Test2.class
+                
+        }
+)
+
+
+
+public class TestSuite {
+
+    private class Test1 {
+    }
+}
+
+Main.java:
+public class MessageUtil {
+    private String message;
+
+    public MessageUtil(String message) {
+        this.message = message;
+    }
+    //print the message
+    public String printMessage(){
+        System.out.println(message);
+        return (message);
+
+    }
+    public String salutationMessage(){
+        message="Hello!!"+message;
+        System.out.println(message);
+        return message;
+    }
+}
+
+File Creating and displaying Contents
+Main.java:
+package com.thbs.mainpack;
+import java.io.File;
+
+public class Main {
+
+    public static void main(String[] args) {
+        File file1=new File("C:\\Users\\aishwarya_khonde\\Desktop\\thfile1.txt");
+        System.out.println(file1.getAbsolutePath());
+        System.out.println(file1.getParent());
+        System.out.println(file1.getName());
+
+
+        File file2=new File("C:\\Users\\aishwarya_khonde\\Desktop","thfile1.txt");
+        System.out.println(file2);
+        File dir=new File("C:\\Users\\aishwarya_khonde\\Documents");
+        File[] filelist=dir.listFiles();
+        for(File f:filelist)
+        {
+            if(f.isFile())
+            {
+                System.out.println(f.getName());
+            }
+        }
+
+
+
+
+    }
+}
+
+Output:
+C:\Users\aishwarya_khonde\Desktop\thfile1.txt
+C:\Users\aishwarya_khonde\Desktop
+thfile1.txt
+C:\Users\aishwarya_khonde\Desktop\thfile1.txt
+Aishwarya Khonde_5942.rtf
+Aishwarya Khonde_5942_B84_DQLAssignment1.odt
+desktop.ini
+DQL statements.txt
+javaprog_usingintellij_day15.txt
+java_assignment.txt
+Java_Day16.txt
+Java_Day17.txt
+Java_Day18.txt
+Java_Day19.txt
+Java_Day20.txt
+Linux Commands.odt
+Linux Commands1.odt
+Mongodb commands.txt
+MongoDB Queries.odt
+MYSQL Queries.odt
+Presentation on static and dynamic testing.odt
+presentation.odt
+pull and push command.odt
+pull and push command.rtf
+shell scripting.odt
+
+File Attributes Demo
+Main.java:
+
+package com.thbs.mainpack;
+
+import java.io.File;
+import java.io.IOException;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        File file1=new File("C:\\Users\\aishwarya_khonde\\Desktop\\thfile1.txt");
+        try {
+            file1.createNewFile();
+            System.out.println("File created successfully....");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(file1.getAbsolutePath());
+        System.out.println(file1.getName());
+
+        System.out.println(file1.getParent());
+
+        File file2=new File("C:\\Users\\aishwarya_khonde\\Desktop","thfile1.txt");
+        try {
+            file2.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File dir=new File("C:\\Users\\aishwarya_khonde\\Documents");
+        File[] filelist=dir.listFiles();
+        //to list only the files in document directory
+        for(File f:filelist)
+        {
+            if(f.isFile())
+                System.out.println(f.getName());
+        }
+
+
+    }
+}
+
+Output:
+File created successfully....
+C:\Users\aishwarya_khonde\Desktop\thfile1.txt
+thfile1.txt
+C:\Users\aishwarya_khonde\Desktop
+Aishwarya Khonde_5942.rtf
+Aishwarya Khonde_5942_B84_DQLAssignment1.odt
+desktop.ini
+DQL statements.txt
+javaprog_usingintellij_day15.txt
+java_assignment.txt
+Java_Day16.txt
+Java_Day17.txt
+Java_Day18.txt
+Java_Day19.txt
+Java_Day20.txt
+Linux Commands.odt
+Linux Commands1.odt
+Mongodb commands.txt
+MongoDB Queries.odt
+MYSQL Queries.odt
+Presentation on static and dynamic testing.odt
+presentation.odt
+pull and push command.odt
+pull and push command.rtf
+shell scripting.odt
+
+Comparable Collection Demo
+
+Student.java:
+package com.thbs.spack;
+
+public class Student implements Comparable<Student> {
+    private int id;
+    private String name;
+    private int marks;
+
+    public Student(int id, String name, int marks) {
+        this.id = id;
+        this.name = name;
+        this.marks = marks;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", marks=" + marks +
+                '}';
+    }
+     //s1.compareTo(s2)
+    @Override
+    public int compareTo(Student s) {
+       // if (marks>s.marks)
+        if(marks<s.marks)
+            return 1;
+        else
+            if(marks==s.marks)
+            {
+                if(id>s.id)
+                    return 1;
+                else
+                    if(id==s.id)
+                        return 0;
+                    else
+                        return -1;
+            }
+
+            else
+                return -1;
+    }
+}
+
+main.java:
+package com.thbs.mainpack;
+
+import com.thbs.spack.Student;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        ArrayList<Student> slist=new ArrayList<Student>();
+        slist.add(new Student(10,"xxx",75));
+        slist.add(new Student(20,"yyy",65));
+        slist.add(new Student(30,"zzz",85));
+        slist.add(new Student(40,"mmm",75));
+        slist.add(new Student(50,"nnn",55));
+        System.out.println("Printing before sorting:");
+        //Enhanced for loop
+        for(Student s:slist)
+            System.out.println(s);
+        Collections.sort(slist);
+        System.out.println("Printing after sorting:");
+        //Enhanced for loop
+        for(Student s:slist)
+            System.out.println(s);
+
+
+
+
+
+    }
+}
+
+Output:
+Printing before sorting:
+Student{id=10, name='xxx', marks=75}
+Student{id=20, name='yyy', marks=65}
+Student{id=30, name='zzz', marks=85}
+Student{id=40, name='mmm', marks=75}
+Student{id=50, name='nnn', marks=55}
+Printing after sorting:
+Student{id=30, name='zzz', marks=85}
+Student{id=10, name='xxx', marks=75}
+Student{id=40, name='mmm', marks=75}
+Student{id=20, name='yyy', marks=65}
+Student{id=50, name='nnn', marks=55}
+
+Comparator Demo
+Person.java:
+package com.thbs.ppack;
+
+public class Person {
+    private int id;
+    private String name;
+    private int age;
+
+    public Person(int id, String name, int age) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                '}';
+    }
+}
+
+Age Comparator.java
+package com.thbs.comppack;
+
+import com.thbs.ppack.Person;
+
+import java.util.Comparator;
+
+public class AgeComparator implements Comparator<Person> {
+
+
+    @Override
+    public int compare(Person p1, Person p2) {
+            if(p1.getAge()>p2.getAge())
+                return 1;
+            else
+                if(p1.getAge()==p2.getAge())
+                        return 0;
+                else
+                    return -1;
+
+    }
+}
+
+Name Comparator.java:
+package com.thbs.comppack;
+
+import com.thbs.ppack.Person;
+
+import java.util.Comparator;
+
+public class NameComparator implements Comparator<Person> {
+    @Override
+    public int compare(Person p1, Person p2) {
+        return(p1.getName().compareTo(p2.getName()));
+    }
+}
+
+Main.java:
+package com.thbs.mainpack;
+
+import com.thbs.comppack.AgeComparator;
+import com.thbs.comppack.NameComparator;
+import com.thbs.ppack.Person;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class Main {
+
+    public static void main(String[] args) {
+        ArrayList<Person> plist=new ArrayList<Person>();
+
+
+        plist.add(new Person(10,"Aish",21));
+        plist.add(new Person(20,"Divs",25));
+        plist.add(new Person(30,"Vani",21));
+        plist.add(new Person(40,"Rakshi",30));
+        plist.add(new Person(50,"Gopi",30));
+
+        System.out.println(plist);
+
+        Collections.sort(plist,new AgeComparator());
+
+        System.out.println(plist);
+
+        Collections.sort(plist,new NameComparator());
+
+        System.out.println(plist);
+
+
+    }
+}
+
+Output:
+[Person{id=10, name='Aish', age=21}, Person{id=20, name='Divs', age=25}, Person{id=30, name='Vani', age=21}, Person{id=40, name='Rakshi', age=30}, Person{id=50, name='Gopi', age=30}]
+[Person{id=10, name='Aish', age=21}, Person{id=30, name='Vani', age=21}, Person{id=20, name='Divs', age=25}, Person{id=40, name='Rakshi', age=30}, Person{id=50, name='Gopi', age=30}]
+[Person{id=10, name='Aish', age=21}, Person{id=20, name='Divs', age=25}, Person{id=50, name='Gopi', age=30}, Person{id=40, name='Rakshi', age=30}, Person{id=30, name='Vani', age=21}]
+
+Collection Priority Demo
+Items.java:
+package com.thbs.ipack;
+
+public class Items implements Comparable<Items>{
+    private int id;
+    private String name;
+
+    public Items(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return "Items{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+//the least id will be given the most priority
+    @Override
+    public int compareTo(Items i) {
+        if(id>i.id)
+            return 1;
+        else
+            if(i.id==i.id)
+                return 0;
+            else
+                return -1;
+
+    }
+}
+
+Main.java:
+package com.thbs.mainpack;
+
+import com.thbs.ipack.Items;
+
+import java.util.PriorityQueue;
+import java.util.Queue;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Queue<Items> pq=new PriorityQueue<Items>();
+        pq.add(new Items(154,"Java"));
+        pq.add(new Items(45,"Java Script"));
+        pq.add(new Items(4,"Html"));
+        pq.add(new Items(154,"C"));
+        pq.add(new Items(60,"python"));
+        System.out.println("*****************************************");
+        for(Items i:pq)
+        {
+            System.out.println(i);
+        }
+        System.out.println(pq.poll());
+        System.out.println("*************************************");
+        for(Items i:pq)
+        {
+            System.out.println(i);
+        }
+        System.out.println(pq.poll());
+        System.out.println("*******************************************");
+        for(Items i:pq)
+        {
+            System.out.println(i);
+        }
+
+
+
+
+
+    }
+}
+
+Output:
+*****************************************
+Items{id=154, name='Java'}
+Items{id=45, name='Java Script'}
+Items{id=4, name='Html'}
+Items{id=154, name='C'}
+Items{id=60, name='python'}
+Items{id=154, name='Java'}
+*************************************
+Items{id=4, name='Html'}
+Items{id=45, name='Java Script'}
+Items{id=60, name='python'}
+Items{id=154, name='C'}
+Items{id=4, name='Html'}
+*******************************************
+Items{id=45, name='Java Script'}
+Items{id=154, name='C'}
+Items{id=60, name='python'}
+
+Generic Class Demo
+Product.java:
+package com.thbs.gpack;
+
+public class Product {
+    private int pId;
+    private String pName;
+
+    public Product(int pId, String pName) {
+        this.pId = pId;
+        this.pName = pName;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "pId=" + pId +
+                ", pName='" + pName + '\'' +
+                '}';
+    }
+}
+
+Test.java:
+package com.thbs.gpack;
+
+public class Test <T,U>{
+    private T ob1;
+    private U ob2;
+
+
+    public Test(T ob1, U ob2) {
+        this.ob1 = ob1;
+        this.ob2 = ob2;
+    }
+
+    @Override
+    public String toString() {
+        return "Test{" +
+                "ob1=" + ob1 +
+                ", ob2=" + ob2 +
+                '}';
+    }
+
+    public T getOb1() {
+        return ob1;
+    }
+
+    public U getOb2() {
+        return ob2;
+    }
+}
+
+Main.java:
+package com.thbs.mainpack;
+
+import com.thbs.gpack.Product;
+import com.thbs.gpack.Test;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Test<String,String> tob=new Test<String,String>("Hello","World");
+        System.out.println(tob);
+        Test<Integer,String> tob1=new Test<>(100,"Mythili");
+        System.out.println(tob1);
+
+Test<Integer, Product> tob2=new Test<>(100,new Product(10,"Book"));
+        System.out.println(tob2);
+    }
+}
+
+Output:
+Test{ob1=Hello, ob2=World}
+Test{ob1=100, ob2=Mythili}
+Test{ob1=100, ob2=Product{pId=10, pName='Book'}}
+
+Generic Function Demo
+Product.java:
+package com.thbs.mainpack;
+
+public class Product
+{
+    private int pid;
+    private String pname;
+
+    public Product(int pid, String pname) {
+        this.pid = pid;
+        this.pname = pname;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "pid=" + pid +
+                ", pname='" + pname + '\'' +
+                '}';
+    }
+}
+
+
+Test.java:
+package com.thbs.mainpack;
+
+public class Test {
+
+    public static <T> void printArray(T[] arr)
+    {
+        for(T ele:arr)
+        {
+            System.out.print(ele+"    ");
+        }
+    }
+}
+
+Main.java:
+package com.thbs.mainpack;
+
+public class Main {
+
+    public static void main(String[] args) {
+          Integer[] intarr={3,5,7,9};
+              Test.printArray(intarr);
+
+
+
+              String[] sarr={"Mythili","Tasmiya","Priyanka"};
+              Test.printArray(sarr);
+
+              Product[] prr={new Product(10,"Books"),new Product(20,"Pens")};
+              Test.printArray(prr);
+
+    }
+}
+
+Output:
+3    5    7    9    Mythili    Tasmiya    Priyanka    Product{pid=10, pname='Books'}    Product{pid=20, pname='Pens'}
+
+
+Lombok Demo
+Customer.java:
+import lombok.*;
+
+//@Getter
+@AllArgsConstructor
+//@Setter
+@ToString
+@NoArgsConstructor
+
+public class Customer {
+    @Getter
+    private int custId;
+    private String custName;
+    @Getter
+    private int  balance;
+
+
+}
+
+Person.java:
+import lombok.Data;
+
+public @Data class Person {
+    private  int pId;
+    private String name;
+
+}
+
+Main.java:
+public class Main {
+    public static void main(String[] args)
+    {
+        /*Customer cust1=new Customer(100,"Aish",3000);
+        System.out.println(cust1);
+        Customer cust2=new Customer();
+        *//*cust2.setCustId(200);
+        cust2.setCustName("Divya");
+        cust2.setBalance(10000);
+        System.out.println(cust2.getCustName()+"  "+cust2.getBalance());*//*
+
+        Customer cust3=new Customer(300,"Vedha",40000);
+        System.out.println(cust3.getCustId()+"  "+cust3.getBalance());*/
+
+
+        //Person
+        Person person=new Person();
+        person.setPId(10);
+        person.setName("Mythili");
+        System.out.println(person.getPId()+"  "+person.getName());
+    }
+}
+
+Output:
+10  Mythili
+
+File Reading Character Format
+main.java
+package com.thbs.mainpack;
+
+
+import java.io.*;
+
+public class Main {
+
+    public static void main(String[] args) throws FileNotFoundException {
+
+        File file1=new File("C:\\Users\\aishwarya_khonde\\Desktop\\thfile1.txt");
+
+        try (FileReader fr=new FileReader(file1);
+        BufferedReader br=new BufferedReader(fr);)
+        {
+           String str;
+           /*str=br.readLine();
+           while(!str.equals("END"))*/
+            while((str=br.readLine())!=null)
+           {
+               System.out.println(str);
+               //str=br.readLine();
+           }
+        } catch(FileNotFoundException e){
+            e.printStackTrace();
+        }
+
+            catch(IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+}
+
+Output:
+Good Morning
+Good Afternoon
+Good Evening
+Good Night
+END
+
+Read Write Character Format:
+package com.thbs.mainpack;
+
+import java.io.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        File file1=new File("C:\\Users\\aishwarya_khonde\\Desktop\\thfile1.txt");
+        File file2=new File("C:\\Users\\aishwarya_khonde\\Desktop\\thfile2.txt");
+        try (FileReader fr=new FileReader(file1);
+             BufferedReader br=new BufferedReader(fr);
+            // FileWriter fw=new FileWriter(file2);//append mode is default:false
+             FileWriter fw=new FileWriter(file2,true);
+             BufferedWriter bw=new BufferedWriter(fw);)
+        {
+            String str;
+            while((str=br.readLine())!=null)
+            {
+                System.out.println(str);
+                bw.write(str);
+                bw.newLine();
+            }
+            System.out.println("All records added Successfully..........");
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+
+Output:
+Good Morning
+Good Afternoon
+Good Evening
+Good Night
+END
+All records added Successfully..........
+
+Read Write Byte by Byte:
+package com.thbs.mainpack;
+
+import java.io.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        File file1=new File("C:\\Users\\aishwarya_khonde\\Desktop\\thfile1.txt");
+        File file2=new File("C:\\Users\\aishwarya_khonde\\Desktop\\thfile3.txt");
+
+         try(FileInputStream input=new FileInputStream(file1);
+             BufferedInputStream bis=new BufferedInputStream(input);
+
+             FileOutputStream output=new FileOutputStream(file2);
+             BufferedOutputStream bos=new BufferedOutputStream(output);) {
+              int c;
+              while((c=bis.read())!=-1)
+              {
+                  bos.write(c);
+                  System.out.print((char)c);
+              }
+
+
+         } catch (FileNotFoundException e) {
+             e.printStackTrace();
+         } catch (IOException e) {
+             e.printStackTrace();
+         }
+
+    }
+}
+
+Output:
+Good Morning
+Good Afternoon
+Good Evening
+Good Night
+END
+
+File Read and Write Objects:
+Student.java:
+package com.thbs.spack;
+
+import java.io.Serializable;
+
+public class Student implements Serializable {
+    //serialization does not have method,it is an interface
+    private int id;
+    private String name;
+    private int marks;
+
+    public Student(int id, String name, int marks) {
+        this.id = id;
+        this.name = name;
+        this.marks = marks;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", marks=" + marks +
+                '}';
+    }
+}
+
+Main.java:
+package com.thbs.mainpack;
+
+import com.thbs.spack.Student;
+
+import java.io.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        File file1=new File("C:\\Users\\aishwarya_khonde\\Desktop\\student.dat");
+
+        try(//FileInputStream input=new FileInputStream(file1);
+
+
+            FileOutputStream output=new FileOutputStream(file1);
+          ObjectOutputStream out=new ObjectOutputStream(output);
+            FileInputStream input=new FileInputStream(file1);
+            ObjectInputStream in=new ObjectInputStream(input);)
+        {
+            Student student1=new Student(100,"Radha",80);
+            //writing serialized objects
+            out.writeObject(student1);
+            Student student2=new Student(200,"Jenny",70);
+            out.writeObject(student2);
+            System.out.println("Students records written in file1");
+
+            //deserialization
+            //no new objects will be created :No constructors will work
+            //The size of file(size of all the objects in the file) is got using available() method
+            //FileInputStream gives u the total size of the file
+
+            while(input.available()>0)
+            {
+                Student student=(Student) in.readObject();
+                System.out.println(student);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+Output:
+Students records written in file1
+Student{id=100, name='Radha', marks=80}
+Student{id=200, name='Jenny', marks=70}
+
+File Read and Write Byte Array:
+package com.thbs.mainpack;
+
+import java.io.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        File file1=new File("C:\\Users\\aishwarya_khonde\\Desktop\\thfile1.txt");
+        File file2=new File("C:\\Users\\aishwarya_khonde\\Desktop\\thfile4.txt");
+
+        try(FileInputStream input=new FileInputStream(file1);
+            BufferedInputStream bis=new BufferedInputStream(input);
+
+            FileOutputStream output=new FileOutputStream(file2);
+            BufferedOutputStream bos=new BufferedOutputStream(output);)
+        {
+//to know the size of a file,we have  available()method
+           byte[] buffer=new byte[input.available()];
+           bis.read(buffer);
+           bos.write(buffer);
+           for(byte b:buffer)
+           {
+               System.out.print((char)b);
+           }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+Output:
+Good Morning
+Good Afternoon
+Good Evening
+Good Night
+END
+
+Book JDBC Demo:
+Main.java:
+import java.sql.*;
+
+public class Main {
+
+    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+        // Load the driver
+        //Class.forName("com.mysql.jdbc.Driver");
+        //Establish connection with database using drivers
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookdatabase","root","Aishwarya@123");
+        // create a statement object
+        Statement st = con.createStatement();
+        // execute the query
+        ResultSet rs = st.executeQuery("select * from book");
+        // extract the rows form the rs -----> ResultSet object
+        while (rs.next())
+        {
+            System.out.println(rs.getInt(1)+"    "+rs.getString(2)+"   "+rs.getInt(3));
+        }
+        // close the connection
+        con.close();
+
+    }
+}
+
+Ouput:
+10    Java   300
+20    C++   300
+30    C   300
+
+Collection Book Store:
+Book.java:
+package com.thbs.model;
+
+public class Book {
+    private int bookId;
+    private String bookName;
+    private int bookPrice;
+
+    public Book(int bookId, String bookName, int bookPrice) {
+        this.bookId = bookId;
+        this.bookName = bookName;
+        this.bookPrice = bookPrice;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public int getBookPrice() {
+        return bookPrice;
+    }
+
+    public void setBookPrice(int bookPrice) {
+        this.bookPrice = bookPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", bookName='" + bookName + '\'' +
+                ", bookPrice=" + bookPrice +
+                '}';
+    }
+}
+
+BookOperations.java:
+package com.thbs.bookop;
+
+import com.thbs.model.Book;
+
+import java.util.ArrayList;
+
+public interface BookOperations {
+   String addABook(Book book);
+   ArrayList<Book> getAllBooks();
+   Book getABook(int bookId);
+   String setBookPrice(int bookId,int upPrice);
+
+}
+
+BookOperationsImpl.java:
+package com.thbs.bookop;
+
+import com.thbs.model.Book;
+
+import java.util.ArrayList;
+
+public class BookOperationImpl implements BookOperations {
+
+    private ArrayList<Book> blist=new ArrayList<Book>();
+
+    @Override
+    public String addABook(Book book) {
+        blist.add(book);
+        return "Book added Successfully";
+
+    }
+
+    @Override
+    public ArrayList<Book> getAllBooks() {
+        return blist;
+    }
+
+    @Override
+    public Book getABook(int bookId) {
+        for(Book book:blist)
+        {
+            if(book.getBookId()==bookId)
+                return book;
+        }
+        return null;
+    }
+
+    @Override
+    public String setBookPrice(int bookId, int upPrice) {
+        Book book=getABook(bookId);
+        book.setBookPrice(upPrice);
+        return "Book price updated successfully";
+    }
+}
+
+BookStoreMain.java:
+package com.thbs.mainUIpack;
+
+import com.thbs.bookop.BookOperationImpl;
+import com.thbs.bookop.BookOperations;
+import com.thbs.model.Book;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class BookStoreMain {
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        BookOperationImpl boi=new
+        BookOperationImpl();
+
+
+        while(true)
+        {
+            System.out.println("1. Add a Book");//Admin
+            System.out.println("2. List all the Book");//Admin and Customer
+            System.out.println("3. Get a Book");//Customer and Admin
+            System.out.println("4. Update a Book Price");//Admin
+            System.out.println("5. Exit");
+
+            System.out.println("Enter your choice:");
+            int choice=sc.nextInt();
+
+            switch (choice)
+            {
+                case 1:
+                {
+                    System.out.println("Enter the details of Book");
+                    int bookId=sc.nextInt();
+                    String  bookName=sc.next();
+                    int bookPrice=sc.nextInt();
+                    Book book=new Book(bookId,bookName,bookPrice);
+                    System.out.println(boi.addABook(book));
+
+                    break;
+                }
+                case 2:
+                {
+                    ArrayList<Book> blist=boi.getAllBooks();
+                    for(Book book:blist)
+                    {
+                        System.out.println(book);
+                    }
+                    break;
+                }
+                case 3:
+                {
+                    System.out.println("Enter the book Id to be Searched");
+                    int bookId=sc.nextInt();
+                    Book book=boi.getABook(bookId);
+
+                    if(book!=null)
+                        System.out.println(book);
+                    else
+                        System.out.println("Book does not found in the Store");
+                    break;
+
+                }
+                case 4:
+                {
+                    System.out.println("Enter the book id");
+                    int bookId=sc.nextInt();
+                    System.out.println("Enter the updated price of the book");
+                    int upPrice=sc.nextInt();
+                    System.out.println(boi.setBookPrice(bookId,upPrice));
+                    break;
+                }
+                default:
+                    sc.close();
+                    System.out.println("Bye Bye!!!");
+                    System.exit(0);
+
+            }
+        }
+
+    }
+}
+
+Output:
+1. Add a Book
+2. List all the Book
+3. Get a Book
+4. Update a Book Price
+5. Exit
+Enter your choice:
+1
+Enter the details of Book
+10
+Java
+300
+Book added Successfully
+1. Add a Book
+2. List all the Book
+3. Get a Book
+4. Update a Book Price
+5. Exit
+Enter your choice:
+2
+Book{bookId=10, bookName='Java', bookPrice=300}
+1. Add a Book
+2. List all the Book
+3. Get a Book
+4. Update a Book Price
+5. Exit
+Enter your choice:
+1
+Enter the details of Book
+20
+C
+300
+Book added Successfully
+1. Add a Book
+2. List all the Book
+3. Get a Book
+4. Update a Book Price
+5. Exit
+Enter your choice:
+2
+Book{bookId=10, bookName='Java', bookPrice=300}
+Book{bookId=20, bookName='C', bookPrice=300}
+1. Add a Book
+2. List all the Book
+3. Get a Book
+4. Update a Book Price
+5. Exit
+Enter your choice:
+4
+Enter the book id
+20
+Enter the updated price of the book
+350
+Book price updated successfully
+1. Add a Book
+2. List all the Book
+3. Get a Book
+4. Update a Book Price
+5. Exit
+Enter your choice:
+5
+Bye Bye!!!
+
+
+
