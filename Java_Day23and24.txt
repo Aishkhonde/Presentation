@@ -1,0 +1,519 @@
+
+String Class Demo:
+
+package com.thbs.mainpack;
+
+import java.util.Locale;
+import java.util.StringTokenizer;
+
+public class Main {
+
+    public static void main(String[] args) {
+	    /*String str1="Java World";
+        String str2="Java World";
+        String str3=new String("Java World");
+
+        //equals() is used to compare the contents
+        System.out.println(str1.equals(str2));
+        //the reference we use == operator
+        System.out.println(str1==str2);
+        System.out.println(str1.equals(str3));
+        System.out.println(str1==str3);*/
+
+        System.out.println("-----------------------------------------");
+        //Strings are immutable
+        String str10="Welcome";
+        /*System.out.println(str10.length());
+        System.out.println(str10.charAt(0));
+        System.out.println(str10.toLowerCase());
+        System.out.println(str10);
+        System.out.println(str10.toUpperCase());
+        System.out.println(str10);*/
+        System.out.println("------------------------------------------");
+       String str11=str10.toUpperCase();
+        System.out.println(str10);
+        System.out.println(str11);
+
+        String str1="Java World";
+        String str12=str10+str1.substring(1,4);//1,2,3=ava,---(0,3)----Jav
+        System.out.println(str12);
+        System.out.println(str10.replace('e','i'));
+        System.out.println(str10.replaceAll("We","Hel"));
+        System.out.println("--------------------------------------");
+        int i=10;
+        String istr=String.valueOf(i);
+        System.out.println(istr);
+
+        int res=Integer.parseInt("100");
+        System.out.println("-----------------------------------------");
+
+        //split()
+        //blank space can also be considered as a character and can be used as delimiter
+        String str14="Welcome:all:to:Java:World";
+        String[] words=str14.split(":");
+        for(String s:words)
+        {
+            System.out.println(s);
+        }
+
+        System.out.println("------------------------------------------------");
+        StringTokenizer st=new StringTokenizer("https://10.123.43.56://65",":");
+        while(st.hasMoreTokens())
+        {
+            System.out.println(st.nextToken());
+        }
+
+
+    }
+}
+
+
+
+JDBC METADATA:
+
+import java.sql.*;
+
+public class Main {
+    public static void main(String[] args) throws SQLException {
+        //Establish connection with database using drivers
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookdatabase","root","Aishwarya@123");
+        // create a statement object
+        Statement st = con.createStatement();
+        // execute the query
+        ResultSet rs = st.executeQuery("select * from book");
+        ResultSetMetaData rsmd=rs.getMetaData();
+        System.out.println("Total no. of Columns:"+rsmd.getColumnCount());
+        System.out.println("Column name of 1st column:"+rsmd.getColumnName(1));
+        System.out.println("Column type of 1st column:"+rsmd.getColumnTypeName(1));
+
+    }
+}
+Output:
+Total no. of Columns:3
+Column name of 1st column:bookid
+Column type of 1st column:INT
+
+
+Transient File Template:
+Student.java
+
+package com.thbs.spack;
+
+import java.io.Serializable;
+
+public class Student implements Serializable {
+    private int id;
+    private int m1;
+    private  int m2;
+    private int m3;
+    private  transient int total;
+
+    public Student(int id, int m1, int m2, int m3) {
+        this.id = id;
+        this.m1 = m1;
+        this.m2 = m2;
+        this.m3 = m3;
+    }
+    public  void setTotal(){
+        this.total=m1+m2+m3;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getM1() {
+        return m1;
+    }
+
+    public int getM2() {
+        return m2;
+    }
+
+    public int getM3() {
+        return m3;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", m1=" + m1 +
+                ", m2=" + m2 +
+                ", m3=" + m3 +
+                ", total=" + total +
+                '}';
+    }
+}
+
+Read Object.java
+
+package com.thbs.fpack;
+
+import com.thbs.spack.Student;
+
+import java.io.*;
+
+public class ReadObject {
+    public void readobject() {
+
+        File file1 = new File("C:\\Users\\User115\\Desktop\\student.dat");
+
+        try (//FileInputStream input=new FileInputStream(file1);
+
+
+             FileInputStream input = new FileInputStream(file1);
+             ObjectInputStream in = new ObjectInputStream(input);)
+
+        { System.out.println("Writing the objects while declaring");
+            while(input.available()>0)
+            {
+
+                Student sob=(Student)in.readObject();
+
+                sob.setTotal();
+                System.out.println(sob);
+
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+}
+
+Write Object.java
+
+package com.thbs.fpack;
+
+import com.thbs.spack.Student;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class WriteObject {
+    public void writeOject()
+    {
+        File file1=new File("C:\\Users\\User115\\Desktop\\student.dat");
+
+        try(//FileInputStream input=new FileInputStream(file1);
+
+
+            FileOutputStream output=new FileOutputStream(file1);
+            ObjectOutputStream out=new ObjectOutputStream(output);)
+        {
+            ArrayList<Student> slist=new ArrayList<Student>();
+            slist.add(new Student(1,80,80,80));
+            slist.add(new Student(2,80,80,80));
+            slist.add(new Student(3,80,80,80));
+            Iterator<Student> it=slist.iterator();
+            System.out.println("Reading the objects while writing");
+            while(it.hasNext())
+            {
+
+                Student s=it.next();
+                s.setTotal();
+                System.out.println(s);
+                out.writeObject(s);
+            }
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+}
+
+
+Main.java
+
+package com.thbs;
+
+import com.thbs.fpack.ReadObject;
+import com.thbs.fpack.WriteObject;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        WriteObject wob=new WriteObject();
+        wob.writeOject();
+
+        ReadObject rob=new ReadObject();
+        rob.readobject();
+
+    }
+}
+
+JDBC CRUD DEMO
+DBManager.java:
+
+package bookop;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DBManager {
+    public static Connection con;
+    public static Connection getConnection()
+    {
+        try {
+            con= DriverManager.getConnection("jdbc:mysql://localhost:3306/bookdatabase","root","Aishwarya@123");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return con;
+    }
+}
+
+Book.java
+package model;
+
+public class Book {
+    private int bookId;
+    private String bookName;
+    private int bookPrice;
+
+    public Book(int bookId, String bookName, int bookPrice) {
+        this.bookId = bookId;
+        this.bookName = bookName;
+        this.bookPrice = bookPrice;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public String getBookName() {
+        return bookName;
+    }
+
+    public int getBookPrice() {
+        return bookPrice;
+    }
+
+    public void setBookPrice(int bookPrice) {
+        this.bookPrice = bookPrice;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "bookId=" + bookId +
+                ", bookName='" + bookName + '\'' +
+                ", bookPrice=" + bookPrice +
+                '}';
+    }
+}
+
+Book Operation Impl:
+
+package bookop;
+
+import model.Book;
+
+import java.sql.*;
+import java.util.ArrayList;
+
+public class BookOperationImpl implements BookOperations {
+
+private  static Connection con=null;
+
+    @Override
+    public String addABook(Book book) {
+        PreparedStatement ps=null;
+        con=DBManager.getConnection();
+        String str="insert into book values(?,?,?)";
+        try {
+            ps=con.prepareStatement(str);
+            ps.setInt(1,book.getBookId());
+            ps.setString(2,book.getBookName());
+            ps.setInt(3,book.getBookPrice());
+            ps.executeUpdate();
+            return "One row book inserted successfully!!!";
+
+        } catch (SQLException e) {
+           // e.printStackTrace();
+            return("Insert failed due to exception");
+        }
+
+
+
+
+    }
+
+    @Override
+    public ArrayList<Book> getAllBooks() {
+        ArrayList<Book> blist=new ArrayList<Book>();
+        con=DBManager.getConnection();
+        try {
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery("select*from book");
+            while(rs.next())
+            {
+                Book book=new Book(rs.getInt(1),rs.getString(2),rs.getInt(3));
+                blist.add(book);
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return blist;
+
+    }
+
+    @Override
+    public Book getABook(int bookId) {
+            con=DBManager.getConnection();
+           Book book=null;
+        try {
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery("select*from book where bookId="+bookId);
+            while(rs.next())
+            {
+                 book=new Book(rs.getInt(1),rs.getString(2),rs.getInt(3));
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return book;
+    }
+
+    @Override
+    public String setBookPrice(int bookId, int upPrice) {
+        PreparedStatement ps=null;
+        String str ="update book set bookPrice=? where bookId=?";
+        con=DBManager.getConnection();
+        try {
+            ps=con.prepareStatement(str);
+            ps.setInt(1,upPrice);
+            ps.setInt(2,bookId);
+            ps.executeUpdate();
+            return"One row updated...Book price updated successfully";
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        return "Book updating failed due to exception.....";
+    }
+}
+
+
+Book Operation.java:
+package bookop;
+
+import model.Book;
+
+import java.util.ArrayList;
+
+public interface BookOperations {
+    String addABook(Book book);
+    ArrayList<Book> getAllBooks();
+    Book getABook(int bookId);
+    String setBookPrice(int bookId,int upPrice);
+
+}
+
+Main.java:
+package mainUIpack;
+
+import bookop.BookOperationImpl;
+import model.Book;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class BookStoreMain {
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        BookOperationImpl boi=new
+                BookOperationImpl();
+
+
+        while(true)
+        {
+            System.out.println("1. Add a Book");//Admin
+            System.out.println("2. List all the Book");//Admin and Customer
+            System.out.println("3. Get a Book");//Customer and Admin
+            System.out.println("4. Update a Book Price");//Admin
+            System.out.println("5. Exit");
+
+            System.out.println("Enter your choice:");
+            int choice=sc.nextInt();
+
+            switch (choice)
+            {
+                case 1:
+                {
+                    System.out.println("Enter the details of Book");
+                    int bookId=sc.nextInt();
+                    String  bookName=sc.next();
+                    int bookPrice=sc.nextInt();
+                    Book book=new Book(bookId,bookName,bookPrice);
+                    System.out.println(boi.addABook(book));
+
+                    break;
+                }
+                case 2:
+                {
+                    ArrayList<Book> blist=boi.getAllBooks();
+                    for(Book book:blist)
+                    {
+                        System.out.println(book);
+                    }
+                    break;
+                }
+                case 3:
+                {
+                    System.out.println("Enter the book Id to be Searched");
+                    int bookId=sc.nextInt();
+                    Book book=boi.getABook(bookId);
+
+                    if(book!=null)
+                        System.out.println(book);
+                    else
+                        System.out.println("Book  not found in the Store");
+                    break;
+
+                }
+                case 4:
+                {
+                    System.out.println("Enter the book id");
+                    int bookId=sc.nextInt();
+                    System.out.println("Enter the updated price of the book");
+                    int upPrice=sc.nextInt();
+                    System.out.println(boi.setBookPrice(bookId,upPrice));
+                    break;
+                }
+                default:
+                    sc.close();
+                    System.out.println("Bye Bye!!!");
+                    System.exit(0);
+
+            }
+        }
+
+    }
+}
+
+
+
+
+
