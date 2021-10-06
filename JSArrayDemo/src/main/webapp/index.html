@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ReverseANumber</title>
+</head>
+<body>
+<p id="demo"></p>
+<script type="text/javascript">
+    var num=1234;
+    var num1=num;
+    var revnum=0;
+    while(num!=0)
+    {
+   rem=num%10;
+   revnum=revnum*10+rem;
+   num=parseInt(num/10);
+    }
+    document.getElementById("demo").innerHTML="Reverse of the "+num1+" is "+revnum;
+
+
+
+</script>
+
+</body>
+</html>

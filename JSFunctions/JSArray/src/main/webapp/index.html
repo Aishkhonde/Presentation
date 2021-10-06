@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSArrays</title>
+    <script type="text/javascript" >
+        myArray=new Array("Wind","Rain","Fire","Water","Air");
+        yourArray=new Array("Earth","Universe");
+        document.write(myArray+"<br>");
+        //for each element loop
+        for( i in myArray)
+        {
+         document.write("Array element is:"+myArray[i]+"<br>");
+        }
+        //Join:joins all elements into string
+        document.write(myArray.join()+"<br>");
+        //concat:Merging two arrays
+        document.write(myArray.concat(yourArray)+"<br>");
+        //pop:removes the last element n returns it
+        document.write(myArray.pop()+"<br>");
+        //shift:removes the first element n returns it
+        document.write(myArray.shift()+"<br>");
+        //unshift:adds one or more elements in the beginning of array and returns the length
+        document.write(myArray.unshift("Ocean","Storm")+"<br>");
+        document.write(myArray+"<br>");
+
+        //sort the array:sorts in ascending n returns the array
+        document.write(myArray.sort()+"<br>");
+        //sorting in descending
+        document.write(myArray.sort().reverse()+"<br>");
+        //reverse
+        document.write(myArray.reverse()+"<br>");
+        //slice:to extract a sub-array from array
+         subArray=myArray.slice(1,3);
+         //index value 1 and 2 will be extracted ,3 will not be extracted
+        document.write(subArray+"<br>");
+        document.write(myArray+"<br>");
+
+
+
+
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+
+
+</body>
+</html>

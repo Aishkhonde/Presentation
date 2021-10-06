@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Type conversion</title>
+</head>
+<body>
+<script>
+
+<!--    let y="5";-->
+<!--      document.write(typeof y+" value of y "+y+"<br>");-->
+<!--    let z=+y;-->
+<!--    document.write(typeof z+" value of z "+z+"<br>");-->
+
+<!--    let x="333";-->
+<!--    document.write(typeof x+"<br>");-->
+<!--        document.write(String(x)+"<br>");-->
+<!--            document.write((45+30).toString()+"<br>");-->
+<!--                document.write(Number(false)+"<br>");-->
+<!--                  document.write(Number(true)+"<br>");-->
+
+<!--          var url = "index1.html?fname=Mythili&lname=G&pword=1234";-->
+<!--     var encurl= encodeURIComponent(url)-->
+<!--     document.write(encurl+"<br>");-->
+<!--     var decodeurl = decodeURIComponent(encurl);-->
+<!--     document.write(decodeurl+"<br>");-->
+
+<!--     mystr=new String("Hello World");-->
+<!--     document.write(mystr.length+"<br>");-->
+
+
+
+mystr1 = new String("Click here to go W3schools ");
+document.write(mystr1.link("https://www.w3schools.com")+"<br>");
+
+ document.write(mystr1.big()+"<br>");
+ document.write(mystr1.bold()+"<br>");
+ document.write(mystr1.charAt(0)+"<br>");
+ document.write(mystr1.charCodeAt(0)+"<br>");
+
+ ms="Welcome to java Script World";
+ splitms=ms.split(" ");
+ for(i in splitms)
+ {
+ document.write(splitms[i]+"<br>");
+
+ }
+ document.write(ms.slice(7,13)+"<br>");
+ document.write(ms.slice(-12,-6)+"<br>");
+  document.write(ms.substr(7,6)+"<br>");//2nd specifies the length of the stg
+   document.write(ms.replace("Welcome","Hello")+"<br>");
+    document.write(ms.toUpperCase()+"<br>");
+    document.write(ms.toLowerCase()+"<br>");
+
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
