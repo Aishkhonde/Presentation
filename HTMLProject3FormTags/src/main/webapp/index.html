@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Tags</title>
+</head>
+<body>
+<form action="/src/main/webapp/index1.html" method="post">
+    <label>First name:</label>
+    <input type="text" name="fname" id="fname">
+    <br>
+    <label>First name:</label>
+    <input type="text" name="lname" id="lname"><br>
+    <label>Password:</label>
+    <input type="password" name="pword" id="pname"><br>
+    <label>Address</label>
+    <textarea rows="10" cols="10" name="addrs"></textarea><br>
+    <label>States</label>
+    <select name="states" id="states">
+        <option value="karnataka">Karnataka</option>
+        <option value="tamilnadu">Tamilnadu</option>
+        <option value="telangana">Telangana</option>
+        <option value="kerala">Kerala</option>
+    </select>
+    <br>
+    <br>
+<!--    radio buttons-->
+    <input type="radio" id="fruit" name="fruit" value="apple">
+    <label for="fruit">APPLE</label><br><br>
+    <input type="radio" id="fruit1" name="fruit1" value="grapes">
+    <label for="fruit1">GRAPES</label><br><br>
+<!--    Check box-->
+<input type="checkbox" id="2vaccination" name="2vaccination" value="2">
+    <label for="2vaccination">COMPLETED 2 VACCINATION</label>
+    <input type="checkbox" id="1vaccination" name="1vaccination" value="1">
+    <label for="1vaccination">COMPLETED 1 VACCINATION</label>
+    <input type="checkbox" id="0vaccination" name="0vaccination" value="0">
+    <label for="0vaccination">NOT VACCINATED</label>
+    <br>
+    <br>
+
+<!--    date-->
+    <label for doj>Join Date</label>
+    <input type="date" id="doj" name="doj">
+    <br>
+    <br>
+
+    <label for qty>Quantity(between 1-5)</label>
+    <input type="'number" id="qty" name="qty" min="1" max="5">
+    <br>
+    <br>
+
+    <label for ="myfile">Select file from the local drive</label>
+    <input type="file" id="myfile" name="myfile" multiple>
+    <br>
+    <br>
+
+    <label for="mymail">Enter your email</label>
+    <input type="email" id="mymail" name="mymail">
+    <br>
+    <br>
+    <input type="submit" value="Submit">
+</form>
+</body>
+</html>
