@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas image</title>
+</head>
+<body>
+
+<p>Image to use:</p>
+<img id="img" src="image.jfif" alt="Scene" width="150" height="200">
+
+<p>Canvas to fill:</p>
+<canvas id="myCanvas" width="220" height="250"
+        style="border:1px solid black;">
+</canvas>
+
+<p><button onclick="myCanvas()">Try it</button></p>
+
+<script>
+function myCanvas() {
+  var c = document.getElementById("myCanvas");
+  var ctx = c.getContext("2d");
+  var img = document.getElementById("img");
+  ctx.drawImage(img,10,10);
+}
+</script>
+
+</body>
+</html>
+

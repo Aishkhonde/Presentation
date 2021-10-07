@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CanvasText</title>
+</head>
+<body>
+<canvas id="myCanvas" width="200" height="100" style="border:1px solid black;"></canvas>
+
+<script>
+    var c=document.getElementById("myCanvas");
+    var ctx=c.getContext("2d");
+    ctx.font="30px Arial";
+    ctx.fillText("Hello World",10,50);//fillText(text,x,y)--filled text
+</script>
+<!--<script>
+    var c=document.getElementById("myCanvas");
+    var ctx=c.getContext("2d");
+    ctx.font="30px Arial";
+    ctx.strokeText("Hello World",10,50);//stroke Text(text,x,y)&#45;&#45;no fill
+</script>-->
+
+
+</body>
+</html>
