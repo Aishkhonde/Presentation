@@ -1,0 +1,12 @@
+select employee_id,last_name,salary,department_id from employees where department_id=50;
+select min(salary),salary,employee_id,department_id from employees where department_id=50;
+select salary,employee_id,department_id from employees group by department_id;
+select last_name,salary,(salary*12)+100 from employees;
+select last_name,salary,(salary*12)+100 annualsal from employees;
+select last_name,job_id,commission_pct from employees;
+select last_name,12*salary*commission_pct from employees;
+select concat(last_name,job_id)from employees;
+select concat(last_name,"work as",job_id)empwithjobid from employees;
+select employee_id,department_id from employees;
+select department_id from employees;
+select distinct department_id from employees;
